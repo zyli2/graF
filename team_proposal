@@ -1,8 +1,10 @@
-
-Leading Questions: What is the shortest path from one subreddit to another using hyperlinks from the subreddit posts? What subreddit is visited the most from 
-	Our group wants to create a general analysis tool that can find the shortest path from one subreddit to another. We’ve chosen to perform this analysis on a subreddit dataset, originated from the Stanford Network Analysis Project webpage,  that provides information about all the hyperlinks posted within a subreddit. We could store the dataset in a directed graph where a node will represent a subreddit and an edge will represent whether or not there exists a hyperlink to another subreddit. We will denote the connection (edge) between two subreddits by a value of 1 and otherwise. A value of 1 means that there exists a hyperlink from the source subreddit to the target subreddit. Other values mean that there isn’t such a connection.To find the shortest path, we’ve decided on using Dijkstra’s algorithm. Along 
+------------------------------------------------------------------------------------------
+Leading Questions: What is the shortest path from one subreddit to another using hyperlinks from the subreddit posts? What subreddit has the most influence on the flow of information on Reddit?
+	Our group wants to create a general analysis tool that can find the shortest path from one subreddit to another. We’ve chosen to perform this analysis on a subreddit dataset, originated from the Stanford Network Analysis Project webpage, that provides information about all the subreddit hyperlinks posted within a subreddit. We could store the dataset in a directed graph where a node will represent a subreddit and an edge will represent whether or not there exists a hyperlink to another subreddit. We will denote the connection (edge) between two subreddits by a value of 1 and otherwise. A value of 1 means that there exists a hyperlink from the source subreddit to the target subreddit. Other values mean that there isn’t such a connection.To find the shortest path, we’ve decided on using Dijkstra’s algorithm which can be used to answer our second leading question.
  
+------------------------------------------------------------------------------------------
 Dataset Acquisition: 
+
 Data format:
 Our dataset is derived from the link below: http://snap.stanford.edu/data/ http://snap.stanford.edu/data/soc-RedditHyperlinks.html
 And after deleting some irrelevant data from the original file, we extract the two variables (source and target) from the Reddit Hyperlinks-Title and store them in a csv file (~12mb). It’s in our git repository.
@@ -10,20 +12,21 @@ The value of the data will be a text(string).
 
 Data Correction: 
 Since our data is given in the tsv format, we are first going to use MS Excel to get rid of unwanted properties so that our file is lighter. We strip the data until we just have the source subreddit and the destination subreddit. We will then convert this to a csv file which will make data processing easier.
-We will have multiple graphs generated from our data, and we probably need to calculate the number of graphs.
+We might have multiple graphs generated from our data. calculate the number of graphs.
 
 Data Storage:
 The data structure will be a source node with an adjacency list that contains all the targets from the given source. 
 Data storage O(n)
 
-
+------------------------------------------------------------------------------------------
 Algorithm:
+
 We will be using Dijkstra’s Algorithm to find the shortest path between two given subreddits. We will construct a graph given by the csv file by parsing this data with an available library. When constructing this data, we will set the data	
 
 
 Function Inputs:
 
-
+The expected input is a csv file.  
 
 
 Function Outputs:
@@ -31,7 +34,9 @@ Function Outputs:
 Function Efficiency:
 	The expected runtime for Djikstra’s algorithm will be  n log (n) + m. We will also be implemeneting a BFS that will query whether or not a given node is found in our graph. 
 
+------------------------------------------------------------------------------------------
 Timeline:
+
 In the first week, finish cleaning the data in the way we want and come up with an appropriate data structure to store the data. 
 
 In the second week, identify all functions needed for this project, and complete easier functions with testing (). 
@@ -41,6 +46,9 @@ In the third week, finish the core functions - such as the Dijkstra’s Algorith
 – Thanksgiving Break - 
 
 In the last week, wrap up the project with final testing of the program as a whole. Clean up the codes and complete the documentation (if still incomplete). Create the presentation and record the videos to show the final results. 
+
+
+
 
 
 
