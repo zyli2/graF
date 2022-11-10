@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Edge.hpp"
 
 struct Vertex {
