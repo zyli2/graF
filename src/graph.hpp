@@ -7,6 +7,9 @@
 #include <map>
 #include <list>
 
+#include "edge.hpp"
+#include "vertex.hpp"
+
 class Graph {
 public:
     Graph(const std::string& file);
@@ -25,10 +28,10 @@ class GraphLists {
         GraphLists(const std::string& file);
 
         struct Vertex {
-            Vertex(std::string d, std::list<Vertex*> a) : data(d), adjacent(a) {}
+            Vertex(std::string d, std::list<Edge> a) : data(d), adjacent(a) {}
 
             std::string data;
-            std::list<Vertex*> adjacent;
+            std::list<Edge> adjacent;
             
         };
 
