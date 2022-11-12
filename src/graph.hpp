@@ -27,6 +27,7 @@ public:
     int num_OutgoingEdges(std::string vertex);
     int num_IncomingEdges(std::string vertex);
     std::string degree_Centrality();
+    std::string Graph::closeness_Centrality();
 
 private:
     std::unordered_map<std::string, bool>& GetAdjacencyMap(const std::string& source);

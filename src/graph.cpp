@@ -10,7 +10,6 @@ Graph::Graph(const std::string& file) {
         std::string source_subreddit = data.at(0);
         std::string target_subreddit = data.at(1);
         matrix[source_subreddit][target_subreddit] = true;
-        reverse_matrix[target_subreddit][source_subreddit] = true;
     }
 }
 
@@ -22,12 +21,10 @@ std::string Graph::print2() {
     return matrix.begin()->second.begin()->first;
 }
 int Graph::size() {
-    int count = 0;
-    for (std::pair<std::string, std::unordered_map<std::string, bool>> key_val : matrix) count+=key_val.second.size();
-    return count;
+    return matrix.size();
 }
 std::vector<std::string> Graph::BFS(std::string startPoint, std::string endPoint) {
-    if (matrix.find(startPoint) == matrix.end()) return std::vector<std::string>();
+  
     std::queue<std::string> q;
     std::unordered_map<std::string,std::vector<std::string>> visited;
     q.push(startPoint); 
@@ -40,7 +37,6 @@ std::vector<std::string> Graph::BFS(std::string startPoint, std::string endPoint
         if (point == endPoint) {
             break;
         }
-        if (matrix.find(point) == matrix.end()) continue;
         for (std::pair<std::string, bool> target : GetAdjacencyMap(point)) {
             if (visited.find(target.first) == visited.end()) {
                 std::vector<std::string> temp = visited[point];
@@ -93,3 +89,26 @@ std::unordered_map<std::string, bool>& Graph::GetAdjacencyMap(const std::string&
     if (matrix.find(source) == matrix.end()) std::unordered_map<std::string, bool>();
     return matrix[source];
 }
+
+
+std::string Graph::closeness_Centrality() {
+    std::pair<std::string, size_t> smallest;
+    for (std::pair<std::string, std::unordered_map<std::string, bool>> key_val1 : matrix) {
+        int sum = 0;
+        for (std::pair<std::string, std::unordered_map<std::string, bool>> key_val2 : matrix) {
+            std::vector<std::string> path = BFS(key_val1.first, key_val2.first);
+            sum += path.size();
+        
+        }
+        
+        if (sum < smallest.second) {
+            smallest = std::make_pair(key_val1.first, sum);
+        }
+        
+    }
+
+
+    return smallest.first;
+}
+
+std::unordered_map<std::string, bool>& Graph::GetAdjacencyMap(const std::string& source) { return matrix[source];}
