@@ -10,6 +10,7 @@ Graph::Graph(const std::string& file) {
         std::string source_subreddit = data.at(0);
         std::string target_subreddit = data.at(1);
         matrix[source_subreddit][target_subreddit] = true;
+        reverse_matrix[target_subreddit][source_subreddit] = true;
     }
 }
 
@@ -21,7 +22,9 @@ std::string Graph::print2() {
     return matrix.begin()->second.begin()->first;
 }
 int Graph::size() {
-    return matrix.size();
+    int count = 0;
+    for (std::pair<std::string, std::unordered_map<std::string, bool>> key_val : matrix) count+=key_val.second.size();
+    return count;
 }
 std::vector<std::string> Graph::BFS(std::string startPoint, std::string endPoint) {
     if (matrix.find(startPoint) == matrix.end()) return std::vector<std::string>();
@@ -54,7 +57,39 @@ std::vector<std::string> Graph::BFS(std::string startPoint, std::string endPoint
          
 }
 
+int Graph::num_OutgoingEdges(std::string vertex) {
+    return GetAdjacencyMap(vertex).size();
+}
+
+
+int Graph::num_IncomingEdges(std::string vertex) {
+    if (reverse_matrix.find(vertex) == reverse_matrix.end()) return 0;
+    return reverse_matrix[vertex].size();
+}
+
+std::string Graph::degree_Centrality() {
+    int ret_count = 0;
+    std::string ret;
+    for (std::pair<std::string, std::unordered_map<std::string, bool>> key_val : matrix) {
+        if (ret == key_val.first) continue;
+        int temp_count = num_IncomingEdges(key_val.first) + num_OutgoingEdges(key_val.first);
+        if (temp_count > ret_count) {
+            ret = key_val.first;
+            ret_count = temp_count;
+        }   
+    }
+    for (std::pair<std::string, std::unordered_map<std::string, bool>> key_val : reverse_matrix) {
+        if (ret == key_val.first) continue;
+        int temp_count = num_IncomingEdges(key_val.first) + num_OutgoingEdges(key_val.first);
+        if (temp_count > ret_count) {
+            ret = key_val.first;
+            ret_count = temp_count;
+        }   
+    }
+    return ret;
+}
+
 std::unordered_map<std::string, bool>& Graph::GetAdjacencyMap(const std::string& source) { 
-    if (matrix.find(source) == matrix.end()) throw std::runtime_error("failed reading");
+    if (matrix.find(source) == matrix.end()) std::unordered_map<std::string, bool>();
     return matrix[source];
 }
