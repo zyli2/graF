@@ -1,53 +1,37 @@
 #include "utilities.hpp"
 
+
 #include <fstream>
 #include <queue>
 #include <string>
 #include <vector>
 #include <map>
-#include <list>
+#include <unordered_map>
 
-#include "edge.hpp"
-#include "vertex.hpp"
+
+#include <algorithm>
+#include <iostream>
+#include <fstream>
+#include <queue>
+#include <string>
+#include <vector>
+#include <map>
 
 class Graph {
 public:
     Graph(const std::string& file);
+    std::string print1();
+    std::string print2();
+    std::vector<std::string> BFS(std::string startPoint, std::string endPoint);
+    int size();
+    int num_OutgoingEdges(std::string vertex);
+    int num_IncomingEdges(std::string vertex);
+    std::string degree_Centrality();
 
 private:
-    std::map<std::string, bool>& GetAdjacencyMap(const std::string& source);
-    std::map<std::string, std::map<std::string, bool>> matrix;
+    std::unordered_map<std::string, bool>& GetAdjacencyMap(const std::string& source);
+    std::unordered_map<std::string, std::unordered_map<std::string, bool>> matrix;
+    std::unordered_map<std::string, std::unordered_map<std::string, bool>> reverse_matrix;
     
-};
-
-
-
-// list representation in case it's needed.
-class GraphLists {                                          
-    public:
-        GraphLists(const std::string& file);
-
-        struct Vertex {
-            Vertex(std::string d, std::list<Edge> a) : data(d), adjacent(a) {}
-
-            std::string data;
-            std::list<Edge> adjacent;
-            
-        };
-
-        struct Edge {
-            Edge(Vertex* s, Vertex* e) : start(s), end(e) {}
-            Edge(Vertex* s, Vertex* e, int w) : start(s), end(e), weight(w) {}
-
-            int weight = 0;
-            Vertex* start = NULL;
-            Vertex* end = NULL;
-        };
-
-
-    private: 
-        std::vector<Vertex*> vertices;
-        std::list<Edge> edges;
-
 };
 
