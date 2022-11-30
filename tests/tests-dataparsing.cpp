@@ -33,5 +33,5 @@ TEST_CASE("data-parsing-8-vertex-target", "[weight=1][part=1]") {
     target.push_back(key_val.first);
   }
 
-  REQUIRE(source.size() == 8);
+  REQUIRE(target.size() == 8);
 }
