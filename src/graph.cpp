@@ -105,6 +105,7 @@ std::string Graph::closeness_Centrality() {
             smallest = std::make_pair(key_val1.first, sum);
         }
         
+
     }
 
 
@@ -112,3 +113,11 @@ std::string Graph::closeness_Centrality() {
 }
 
 std::unordered_map<std::string, bool>& Graph::GetAdjacencyMap(const std::string& source) { return matrix[source];}
+
+std::unordered_map<std::string, std::unordered_map<std::string, bool>> Graph::getMatrix() [
+    return matrix;
+]
+
+std::unordered_map<std::string, std::unordered_map<std::string, bool>> Graph::getReverseMatrix() {
+    return reverse_matrix;
+}
