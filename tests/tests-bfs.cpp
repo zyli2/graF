@@ -1,5 +1,5 @@
 #include <catch2/catch_test_macros.hpp>
-#include <../src/graph.hpp>
+#include "../src/graph.hpp"
 
 TEST_CASE("BFS-a-dataset", "[weight=1][part=1]") {
   Graph graph("../a.csv");

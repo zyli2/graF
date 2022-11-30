@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "graph.hpp"
-#include "utilities.hpp"
+#include "../src/graph.hpp"
+#include "../src/utilities.hpp"
 
 int main() {
 

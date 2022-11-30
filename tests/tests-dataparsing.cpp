@@ -1,17 +1,17 @@
 #include <catch2/catch_test_macros.hpp>
-#include <../src/graph.hpp>
+#include "../src/graph.hpp"
 
 TEST_CASE("data-parsing-8-edge", "[weight=1][part=1]") {
   Graph graph("../a.csv");
 
-  REQUIRE( graph["cs"]["225"] == true);
-  REQUIRE( graph["225"]["sucks"] == true);
-  REQUIRE( graph["cs"]["128"] == true);
-  REQUIRE( graph["cs"]["223"] == true);
-  REQUIRE( graph["128"]["howdy"] == true);
-  REQUIRE( graph["233"]["idk"] == true);
-  REQUIRE( graph["howdy"]["texas"] == true);
-  REQUIRE( graph["uiuc"]["cs"] == true);
+  REQUIRE( graph.getMatrix()["cs"]["225"] == true);
+  REQUIRE( graph.getMatrix()["225"]["sucks"] == true);
+  REQUIRE( graph.getMatrix()["cs"]["128"] == true);
+  REQUIRE( graph.getMatrix()["cs"]["223"] == true);
+  REQUIRE( graph.getMatrix()["128"]["howdy"] == true);
+  REQUIRE( graph.getMatrix()["233"]["idk"] == true);
+  REQUIRE( graph.getMatrix()["howdy"]["texas"] == true);
+  REQUIRE( graph.getMatrix()["uiuc"]["cs"] == true);
 }
 
 TEST_CASE("data-parsing-8-vertex-source", "[weight=1][part=1]") {
