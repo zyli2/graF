@@ -93,3 +93,11 @@ std::unordered_map<std::string, bool>& Graph::GetAdjacencyMap(const std::string&
     if (matrix.find(source) == matrix.end()) std::unordered_map<std::string, bool>();
     return matrix[source];
 }
+
+std::unordered_map<std::string, std::unordered_map<std::string, bool>> Graph::getMatrix() [
+    return matrix;
+]
+
+std::unordered_map<std::string, std::unordered_map<std::string, bool>> Graph::getReverseMatrix() {
+    return reverse_matrix;
+}
