@@ -36,8 +36,8 @@ public:
 
 
 private:
-    std::unordered_map<std::string, bool>& GetAdjacencyMap(const std::string& source);
-    std::unordered_map<std::string, std::unordered_map<std::string, bool>> matrix;
+    std::vector<std::string>& GetAdjacencyList(const std::string& source);
+    std::unordered_map<std::string, std::vector<std::string>> matrix;
     std::unordered_map<std::string, std::unordered_map<std::string, bool>> reverse_matrix;
 
 };

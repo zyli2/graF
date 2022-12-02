@@ -9,7 +9,8 @@ Graph::Graph(const std::string& file) {
         std::vector<std::string> data = utilities::Split(line, ',');
         std::string source_subreddit = data.at(0);
         std::string target_subreddit = data.at(1);
-        matrix[source_subreddit][target_subreddit] = true;
+        matrix[source_subreddit].push_back(target_subreddit);
+       
     }
 }
 
@@ -17,9 +18,9 @@ std::string Graph::print1() {
     return matrix.begin()->first;
 }
 
-std::string Graph::print2() {
-    return matrix.begin()->second.begin()->first;
-}
+// std::string Graph::print2() {
+//     return matrix.begin()->second.begin()->first;
+// }
 int Graph::size() {
     return matrix.size();
 }
@@ -37,12 +38,12 @@ std::vector<std::string> Graph::BFS(std::string startPoint, std::string endPoint
         if (point == endPoint) {
             break;
         }
-        for (std::pair<std::string, bool> target : GetAdjacencyMap(point)) {
-            if (visited.find(target.first) == visited.end()) {
+        for (std::string target : GetAdjacencyList(point)) {
+            if (visited.find(target) == visited.end()) {
                 std::vector<std::string> temp = visited[point];
-                temp.push_back(target.first);
-                visited[target.first] = temp;
-                q.push(target.first);
+                temp.push_back(target);
+                visited[target] = temp;
+                q.push(target);
             }
         }
     } 
@@ -85,8 +86,8 @@ std::string Graph::degree_Centrality() {
     return ret;
 }
 
-std::unordered_map<std::string, bool>& Graph::GetAdjacencyMap(const std::string& source) { 
-    if (matrix.find(source) == matrix.end()) std::unordered_map<std::string, bool>();
+std::vector<std::string>& Graph::GetAdjacencyList(const std::string& source) { 
+    // if (matrix.find(source) == matrix.end()) std::unordered_map<std::string, bool>();
     return matrix[source];
 }
 
@@ -114,10 +115,30 @@ std::string Graph::closeness_Centrality() {
 
 std::unordered_map<std::string, bool>& Graph::GetAdjacencyMap(const std::string& source) { return matrix[source];}
 
-std::unordered_map<std::string, std::unordered_map<std::string, bool>> Graph::getMatrix() [
+std::unordered_map<std::string, std::unordered_map<std::string, bool>> Graph::getMatrix() {
     return matrix;
-]
+}
 
 std::unordered_map<std::string, std::unordered_map<std::string, bool>> Graph::getReverseMatrix() {
     return reverse_matrix;
 }
+
+// double Graph::betweenness_centrality(std::string point) {
+//     unsigned long betweenness = 0;
+//     unsigned long count = 0;
+//     for (std::pair<std::string, std::unordered_map<std::string, bool>> key_val_source : matrix) {
+//         if (key_val_source.first != point) {
+//             for (std::pair<std::string, std::unordered_map<std::string, bool>> key_val_target : reverse_matrix) {
+//                 if (key_val_target.first != point) {
+//                     for (std::vector<std::string> path : load_path(key_val_source.first, key_val_target.first)) {
+//                         if (path.size() < 3) continue;
+//                         if (std::find(path.begin(), path.end(), point) != path.end()) betweenness++;
+//                         count++;
+//                     }
+//                 }
+//             }
+//         }
+//     }
+//     std::cout << betweenness << "      " << count << std::endl;
+//     return static_cast<double>(betweenness) / count;
+// }
