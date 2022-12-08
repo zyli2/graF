@@ -5,7 +5,7 @@ TEST_CASE("data-parsing-8-edge", "[weight=1][part=1]") {
   Graph graph("../a.csv");
 
   REQUIRE( graph.getMatrix()["cs"]["225"] == true);
-  REQUIRE( graph.getMatrix()["225"]["sucks"] == true);
+  REQUIRE( graph.getMatrix()["225"]["graph"] == true);
   REQUIRE( graph.getMatrix()["cs"]["128"] == true);
   REQUIRE( graph.getMatrix()["cs"]["223"] == true);
   REQUIRE( graph.getMatrix()["128"]["howdy"] == true);
