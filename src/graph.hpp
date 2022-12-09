@@ -26,6 +26,7 @@ public:
     std::unordered_map<std::string, std::unordered_map<std::string, bool>> getMatrix();
     std::unordered_map<std::string, std::unordered_map<std::string, bool>> getRMatrix();
     std::unordered_set<std::string>& getV();
+    std::unordered_set<std::string>& Graph::getE();
     void print1();
     // std::string print2();
     std::vector<std::string> BFS(std::string startPoint, std::string endPoint);
@@ -52,6 +53,8 @@ private:
     std::unordered_map<std::string, std::unordered_map<std::string, bool>> matrix;
     std::unordered_map<std::string, std::unordered_map<std::string, bool>> reverse_matrix;\
     std::unordered_set<std::string> V;
+    std::unordered_set<std::pair<std::string, std::string>> E;
+
 };
 
 

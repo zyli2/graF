@@ -1,5 +1,6 @@
 #include "graph.hpp"
 #include <limits.h>
+#include "../drawing/vertex.hpp"
 
 Graph::Graph(const std::string& file) {
     matrix.clear();
@@ -14,6 +15,8 @@ Graph::Graph(const std::string& file) {
         reverse_matrix[target_subreddit][source_subreddit] = true;
         V.insert(source_subreddit);
         V.insert(target_subreddit);
+
+        E.insert(std::make_pair(source_subreddit, target_subreddit));
     }
 }
 
@@ -236,3 +239,9 @@ void Graph::test() {
 std::unordered_set<std::string>& Graph::getV() {
     return V;
 }
+
+std::unordered_set<std::pair<std::string, std::string>>& Graph::getE() {
+    return E;
+}
+
+
