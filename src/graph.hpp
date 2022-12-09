@@ -10,7 +10,7 @@
 #include <vector>
 #include <map>
 #include <unordered_map>
-
+#include <unordered_set>
 
 #include <algorithm>
 #include <iostream>
@@ -25,6 +25,7 @@ public:
     Graph(const std::string& file);
     std::unordered_map<std::string, std::unordered_map<std::string, bool>> getMatrix();
     std::unordered_map<std::string, std::unordered_map<std::string, bool>> getRMatrix();
+    std::unordered_set<std::string>& getV();
     void print1();
     // std::string print2();
     std::vector<std::string> BFS(std::string startPoint, std::string endPoint);
@@ -40,6 +41,7 @@ public:
     std::vector<std::vector<std::string>> load_path(std::string startPoint, std::string endPoint);
     bool is_not_visited(std::string vertex, std::vector<std::string>& path);
     double betweenness_centrality(std::string);
+
 
 
     void shortest_paths_count(std::string source, std::unordered_map<std::string, int>& dist, std::unordered_map<std::string, int>& paths);

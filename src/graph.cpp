@@ -232,3 +232,7 @@ void Graph::test() {
             find_paths(v);
     }
 }
+
+std::unordered_set<std::string>& Graph::getV() {
+    return V;
+}
