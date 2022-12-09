@@ -23,6 +23,8 @@
 class Graph {
 public:
     Graph(const std::string& file);
+    // std::string print1();
+    std::string print2();
     std::unordered_map<std::string, std::unordered_map<std::string, bool>> getMatrix();
     std::unordered_map<std::string, std::unordered_map<std::string, bool>> getRMatrix();
     void print1();
@@ -45,11 +47,15 @@ public:
     void shortest_paths_count(std::string source, std::unordered_map<std::string, int>& dist, std::unordered_map<std::string, int>& paths);
     void find_paths(std::string source);
 
+    std::unordered_set<std::string>& getV();
+
+    
 private:
     std::unordered_map<std::string, bool>& GetAdjacencyMap(const std::string& source);
     std::unordered_map<std::string, std::unordered_map<std::string, bool>> matrix;
     std::unordered_map<std::string, std::unordered_map<std::string, bool>> reverse_matrix;\
     std::unordered_set<std::string> V;
 };
+
 
 

@@ -1,8 +1,10 @@
 #include <iostream>
-
+#include "../drawing/Image.h"
+#include "../cs225/PNG.h"
 #include "../src/graph.hpp"
 #include "../src/utilities.hpp"
 
+using namespace cs225;
 int main() {
 
   Graph graph("../a.csv");
@@ -13,5 +15,15 @@ int main() {
     std::cout << s << "=>";
   
   std::cout << vect.size() << std::endl;
+
+  Image drawing;
+ 
+  // drawing.readFromFile();
+  
+  drawing.writeToFile("../tests/example.png");
+
+
+
+
   return 0;
 }

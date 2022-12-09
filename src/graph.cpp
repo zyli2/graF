@@ -233,10 +233,6 @@ void Graph::test() {
     }
 }
 
-
-double Graph::betweenness_centrality(std::string point) {
-
-    for (std::pair<std::string, std::string> source : V) {
-        
-    }
+std::unordered_set<std::string>& Graph::getV() {
+    return V;
 }
