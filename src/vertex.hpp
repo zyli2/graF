@@ -1,11 +1,17 @@
 #pragma once
 
-#include "Edge.hpp"
-
+#include <vector>
 struct Vertex {
-            Vertex(std::string d, std::list<Edge> a) : data(d), adjacent(a) {}
 
-            std::string data;
-            std::list<Edge> adjacent;
-            
-        };
+    // two 'vectors' for forces
+    
+    Vertex(std::string source_name, int x_, int y_) : source(source_name), x(x_), y(y_) {}
+
+    int x;
+    int y;
+    int radius = 3;
+    std::string source;
+    int disp = 0;
+    int pos = 0;
+    friend bool operator==(const Vertex& lhs, const Vertex& rhs) { return lhs.source == rhs.source;}   
+};

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../drawing/Image.h"
+#include "../src/Image.h"
 #include "../cs225/PNG.h"
 #include "../src/graph.hpp"
 #include "../src/utilities.hpp"
@@ -16,11 +16,11 @@ int main() {
   
   std::cout << vect.size() << std::endl;
 
-  Image drawing;
+  // Image drawing;
  
   // drawing.readFromFile();
   
-  drawing.writeToFile("../tests/example.png");
+  // drawing.writeToFile("../tests/example.png");
 
 
 

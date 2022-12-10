@@ -1,7 +1,6 @@
 #pragma once
 
 #include "utilities.hpp"
-#include "../drawing/drawing.hpp"
 
 #include <fstream>
 #include <queue>
@@ -54,7 +53,6 @@ private:
     std::unordered_set<std::string> V;
     std::vector<std::pair<std::string, std::string>> E;
 };
-
 
 
 
