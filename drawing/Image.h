@@ -2,7 +2,7 @@
  
  * Contains your declaration of the interface for the Image class.
  */
-#include "./cs225/PNG.h"
+#include "../cs225/PNG.h"
 class Image : public cs225::PNG { 
     public:
         void lighten();

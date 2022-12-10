@@ -1,8 +1,7 @@
 #pragma once
 
-
 #include "utilities.hpp"
-
+#include "../drawing/drawing.hpp"
 
 #include <fstream>
 #include <queue>
@@ -19,15 +18,14 @@
 #include <stack>
 #include <string>
 #include <vector>
-#include <map>
 
 class Graph {
 public:
     Graph(const std::string& file);
     // std::unordered_map<std::string, std::unordered_map<std::string, bool>> getMatrix();
     // std::unordered_map<std::string, std::unordered_map<std::string, bool>> getRMatrix();
-    std::unordered_set<std::string>& getV();
-    std::unordered_set<std::pair<std::string, std::string>>& Graph::getE();
+    std::vector<std::string>& getV();
+    std::vector<std::pair<std::string, std::string>>& getE();
     // void print1();
     // std::string print2();
     std::vector<std::string> BFS(std::string startPoint, std::string endPoint);
@@ -54,9 +52,9 @@ private:
     std::unordered_map<std::string, std::vector<std::string>> matrix;
     std::unordered_map<std::string, std::unordered_map<std::string, bool>> reverse_matrix;\
     std::unordered_set<std::string> V;
-    std::unordered_set<std::pair<std::string, std::string>> E;
-
+    std::vector<std::pair<std::string, std::string>> E;
 };
+
 
 
 

@@ -1,14 +1,14 @@
-#include "../drawing/drawing.hpp"
+
 #include <utility>
 #include <algorithm>
 #include <iostream>
-#include "vertex.hpp"
-#include "../src/graph.hpp"
+
+#include "../drawing/drawing.hpp"
+
 
 Drawing::Drawing(const Image& picture, unsigned max) {
     picture_ = Image(picture);
     max_ = max;
-
 }
 
 
@@ -136,12 +136,12 @@ void Drawing::forceDirected(Image canvas, Graph graph) {
     for(std::string each : graph.getV()) {
         int x = 30 + (rand() % canvas.width() - 30);
         int y = 30 + (rand() % canvas.height() - 30);
-        vertices.insert(Vertex(each, x, y));
+        vertices.push_back(Vertex(each, x, y));
     }
     for(std::pair<std::string, std::string> each : graph.getE()) {
         Vertex vert1 = Vertex(each.first, 0, 0);                //placeholders for comparison
         Vertex vert2 = Vertex(each.second, 0, 0);
-        edges.insert(std::make_pair(*std::find(vertices.begin(), vertices.end(), vert1), *std::find(vertices.begin(), vertices.end(), vert2)));
+        edges.push_back(std::make_pair(*std::find(vertices.begin(), vertices.end(), vert1), *std::find(vertices.begin(), vertices.end(), vert2)));
     }
 
     
@@ -165,7 +165,6 @@ void Drawing::forceDirected(Image canvas, Graph graph) {
             int diff = e.first.pos - e.second.pos;
             // e.first.disp = e.first.disp - ((diff / ) * (std::pow(x, 2) / k));
             // e.second.disp = e.second.disp + ((diff / ) * (std::pow(k, 2) / x));
-
         }
     }
 
@@ -184,7 +183,7 @@ void Drawing::testDraw(Image& canvas, Graph graph) {
         int x = 30 + (rand() % canvas.width() - 30);
         int y = 30 + (rand() % canvas.height() - 30);
         Vertex vert = Vertex(each, x, y);
-        vertices.insert(vert);
+        vertices.push_back(vert);
 
         test.addSticker(vert_png, vert.x, vert.y);
     }

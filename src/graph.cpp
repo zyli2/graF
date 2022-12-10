@@ -1,5 +1,4 @@
 #include "graph.hpp"
-
 #include <limits.h>
 
 Graph::Graph(const std::string& file) {
@@ -16,7 +15,7 @@ Graph::Graph(const std::string& file) {
         V.insert(source_subreddit);
         V.insert(target_subreddit);
 
-        E.insert(std::make_pair(source_subreddit, target_subreddit));
+        E.push_back(std::make_pair(source_subreddit, target_subreddit));
     }
 }
 
@@ -275,6 +274,6 @@ void Graph::betweenness_centrality_opt() {
 }
 
 
-std::unordered_set<std::pair<std::string, std::string>>& Graph::getE() {
+std::vector<std::pair<std::string, std::string>>& Graph::getE() {
     return E;
 }
