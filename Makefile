@@ -1,24 +1,17 @@
-EXENAME = main
-OBJS = main.o openflights.o flightmap.o
-OBJS_DIR = .objs
-CXX = clang++
-CXXFLAGS = $(CS225) -std=c++1y -stdlib=libc++ -c -g -O0 -Wall -Wextra -pedantic
-LD = clang++
-LDFLAGS = -std=c++1y -stdlib=libc++ -lc++abi -lm
+# CXX=clang++
+CXX_FLAGS=g++ -std=c++14
 
-.PHONY: all test clean output_msg
+exec: bin/exec
+tests: bin/tests
 
-all : $(EXENAME)
+bin/exec: ./src/graph.cpp ./src/utilities.cpp ./entry/main.cpp
+    $(CXX_FLAGS) $^ -o $@
 
+bin/tests: ./tests/tests-bfs.cpp ./tests/tests-dataparsing.cpp ./src/graph.cpp ./src/utilities.cpp
+    $(CXX_FLAGS) $^ -o $@
 
-$(EXENAME): output_msg $(patsubst %.o, $(OBJS_DIR)/%.o, $(OBJS))
-	$(LD) $(filter-out $<, $^) $(LDFLAGS) -o $@
+.DEFAULT_GOAL := exec
+.PHONY: exec tests clean
 
-$(OBJS_DIR)/%.o: %.cpp | $(OBJS_DIR)
-	$(CXX) $(CXXFLAGS) $< -o $@
-
-main.o : main.cpp openflights.cpp flightmap.cpp
-	$(CXX) $(CXXFLAGS) main.cpp
-
-clean :
-	-rm -f *.o .txt $(EXENAME) test
+clean:
+    rm -f bin/*
