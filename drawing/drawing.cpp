@@ -132,24 +132,31 @@ Image Drawing::render() const {
 void Drawing::forceDirected(Image canvas, Graph graph) {
     int area = canvas.width() * canvas.height();
 
-    
+    // randomize positions
     for(std::string each : graph.getV()) {
         int x = 30 + (rand() % canvas.width() - 30);
         int y = 30 + (rand() % canvas.height() - 30);
         vertices.insert(Vertex(each, x, y));
     }
+    for(std::pair<std::string, std::string> each : graph.getE()) {
+        Vertex vert1 = Vertex(each.first, 0, 0);                //placeholders for comparison
+        Vertex vert2 = Vertex(each.second, 0, 0);
+        edges.insert(std::make_pair(*std::find(vertices.begin(), vertices.end(), vert1), *std::find(vertices.begin(), vertices.end(), vert2)));
+    }
 
     
 
-    // randomize positions
+   
+    
     int k = sqrt(area / graph.getV().size());
 
     const int iters = 40;
     for (int i = 0; i < iters; i++) {
         for (Vertex v : vertices) {
             for (Vertex v2 : vertices) {
-                if (v.source_name != v2.source_name) {
+                if (v.source != v2.source) {
                     int diff = v.pos - v2.pos;
+                    // v.disp = v.disp + ()
                 }
             }
         }
@@ -166,19 +173,22 @@ void Drawing::forceDirected(Image canvas, Graph graph) {
 }
 
 
-void Drawing::testDraw(Image canvas, Graph graph) {
+void Drawing::testDraw(Image& canvas, Graph graph) {
    
-    Image drawing;
+    Image vert_png;
+    vert_png.readFromFile("../drawing/vert.png");
 
-
+    Drawing test(canvas, 50);
     
     for(std::string each : graph.getV()) {
         int x = 30 + (rand() % canvas.width() - 30);
         int y = 30 + (rand() % canvas.height() - 30);
-        vertices.insert(Vertex(each, x, y));
-        // drawing.getPixel()
+        Vertex vert = Vertex(each, x, y);
+        vertices.insert(vert);
+
+        test.addSticker(vert_png, vert.x, vert.y);
     }
-    drawing.writeToFile("../tests/example.png");
+    test.render().writeToFile("../tests/example.png");
   
   
 }

@@ -9,8 +9,8 @@ class Drawing {
         void forceDirected(Image canvas, Graph graph);
         void removeSticker(unsigned index);
         int addSticker(Image& sticker, int x, int y);
-       
-        void testDraw(Image canvas, Graph graph);
+        
+        void testDraw(Image& canvas, Graph graph);
         Image render() const;
         bool translate(unsigned index, unsigned x, unsigned y);
     private:
