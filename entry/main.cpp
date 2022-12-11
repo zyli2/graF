@@ -15,15 +15,15 @@ int main() {
     std::cout << s << "=>";
   
   std::cout << vect.size() << std::endl;
-
-  // Image drawing;
- 
-  // drawing.readFromFile();
   
-  // drawing.writeToFile("../tests/example.png");
+  Image image = Image();
+  image.readFromFile("white.png");
 
-
-
+  Drawing drawing = Drawing(image, 50);
+ 
+  drawing.testDraw()
+  
+  drawing.writeToFile("../tests/example.png");
 
   return 0;
 }
