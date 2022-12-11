@@ -1,11 +1,13 @@
-#pragma once
+
 
 
 #include "Image.h"
-#include "../src/vertex.hpp"
+#include "../drawing/vertex.hpp"
 #include "../src/graph.hpp"
 
-
+#include <utility>
+#include <algorithm>
+#include <iostream>
 #include <vector>
 #include <unordered_set>
 
