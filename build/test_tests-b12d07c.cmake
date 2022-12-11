@@ -1,5 +1,3 @@
-add_test( BFS-a-dataset [==[/workspaces/cs225 (new)/final_project/graF/build/test]==] BFS-a-dataset  )
-set_tests_properties( BFS-a-dataset PROPERTIES WORKING_DIRECTORY [==[/workspaces/cs225 (new)/final_project/graF/build]==])
-add_test( BFS-b-dataset [==[/workspaces/cs225 (new)/final_project/graF/build/test]==] BFS-b-dataset  )
-set_tests_properties( BFS-b-dataset PROPERTIES WORKING_DIRECTORY [==[/workspaces/cs225 (new)/final_project/graF/build]==])
-set( test_TESTS BFS-a-dataset BFS-b-dataset)
+add_test( Angle [==[/workspaces/cs225 (new)/final_project/graF/build/test]==] Angle  )
+set_tests_properties( Angle PROPERTIES WORKING_DIRECTORY [==[/workspaces/cs225 (new)/final_project/graF/build]==])
+set( test_TESTS Angle)

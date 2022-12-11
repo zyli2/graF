@@ -174,3 +174,16 @@ void Image::scale(unsigned w, unsigned h) {
     }
 }
 
+void Image::rotateRight(PNG& oldImagen) {
+    PNG oldImage = PNG(oldImagen);
+    double m = width() - 1;
+
+    for (double i = 0; i < width(); i++) {
+        double n = 0;
+        for (double k = 0; k < height(); k++) {
+            getPixel(m, n) = oldImage.getPixel(i,k);
+        }
+        n++;
+    }
+    m--;
+}
