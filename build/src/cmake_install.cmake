@@ -1,4 +1,4 @@
-# Install script for directory: /workspaces/cs225 (new)/final_project/graF/src
+# Install script for directory: /workspaces/cs225/graF/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
