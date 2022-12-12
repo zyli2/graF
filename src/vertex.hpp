@@ -3,18 +3,16 @@
 #include <vector>
 struct Vertex {
 
-    // two 'vectors' for forces
-    Vertex() ;
-    
-    Vertex(std::string source_name, int x_, int y_) : x(x_), y(y_),  source(source_name) {}
+    Vertex(std::string sourcename, int x, int y_) : source(sourcename), x(x), y(y_) {}
 
-    int x = 0;
-    int y = 0;
-    int radius = 3;
+    int x;
+    int y;
+
     std::string source;
-    int disp = 0;
-    int pos = 0;
-    friend bool operator==(const Vertex& lhs, const Vertex& rhs) { return lhs.source == rhs.source;}  
-    friend bool operator<(const Vertex& lhs, const Vertex& rhs) { return lhs.source < rhs.source;}  
-    
-};
+    double bc_coeff;
+
+    int radius = 3 * bc_coeff;
+
+    friend bool operator==(const Vertex& lhs, const Vertex& rhs) { return lhs.source == rhs.source;}
+    friend bool operator<(const Vertex& lhs, const Vertex& rhs) { return lhs.bc_coeff < rhs.bc_coeff;}
+}; 

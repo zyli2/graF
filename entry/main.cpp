@@ -43,7 +43,7 @@ int main() {
   drawing.scale(20);
 
 
-  Drawing object = Drawing(drawing, 50);
+  Drawing object = Drawing(drawing, 100);
  
 
   object.testDraw(graph);
