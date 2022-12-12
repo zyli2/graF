@@ -11,9 +11,35 @@
 
 class Drawing {
     public:
+        /**
+        * The main drawing function.
+        *
+        * @param picture The image to be drawn on.
+        */
         Drawing(const Image & picture);
+
+        /**
+        * Add and store vertex and its coords. 
+        *
+        * @param sticker The node (picture)
+        * @param x The x coordinate 
+        * @param y The y coordinate 
+        *
+        * @return The number of vertices it currenting stored.
+        */
         int addVertex(Image& sticker, int x, int y);
+
+        /**
+        * The main drawing function.
+        *
+        * @param graph The graph that will be used for drawing
+        */
         void testDraw(Graph graph);
+
+        /**
+        *
+        * @return The Image.
+        */
         Image render() const;
         
     private:
