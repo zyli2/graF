@@ -22,7 +22,7 @@ int main() {
   // std::cout << vect.size() << std::endl;
 
   // std::cout << "Size: " << graph.number_vertices() << std::endl;
-  graph.partition( 100 );
+  graph.partition( 20 );
 
   std::cout << "Size: " << graph.number_vertices() << std::endl;
   /*
@@ -43,7 +43,7 @@ int main() {
   drawing.scale(20);
 
 
-  Drawing object = Drawing(drawing, 50);
+  Drawing object = Drawing(drawing);
  
 
   object.testDraw(graph);
