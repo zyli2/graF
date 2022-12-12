@@ -20,22 +20,27 @@
 class Graph {
 public:
     Graph(const std::string& file);
+
+    /** Getter functions **/
     std::unordered_set<std::string>& getV();
     std::vector<std::pair<std::string, std::string>>& getE();
     std::unordered_map<std::string, std::vector<std::string>> getMatrix();
     std::unordered_map<std::string, std::vector<std::string>> getRMatrix();
+
+    /** Printer functions **/
     void print1();
     std::string print2();
+    
     std::vector<std::string> BFS(std::string startPoint, std::string endPoint);
     int number_vertices();
     // void test();
     
-    // /** degree_centrality**/
-    // int num_OutgoingEdges(std::string vertex);
-    // int num_IncomingEdges(std::string vertex);
-    // std::string degree_Centrality();
+    /** degree_centrality **/
+    int num_OutgoingEdges(std::string vertex);
+    int num_IncomingEdges(std::string vertex);
+    std::string degree_Centrality();
 
-    /** betweenness_centrality**/
+    /** betweenness_centrality **/
     std::vector<std::vector<std::string>> load_path(std::string startPoint, std::string endPoint);
     bool is_not_visited(std::string vertex, std::vector<std::string>& path);
     double betweenness_centrality(std::string);
@@ -43,8 +48,9 @@ public:
 
     void shortest_paths_count(std::string source, std::unordered_map<std::string, int>& dist, std::unordered_map<std::string, int>& paths, std::unordered_map<std::string, std::vector<std::string>>& pre, std::stack<std::string>& s);
     // void find_paths(std::string source);
-    std::string betweenness_centrality_opt();
+    std::unordered_map<std::string, double> betweenness_centrality_opt();
 
+    /** partition **/
     void partition(unsigned int n);
 
 private:
