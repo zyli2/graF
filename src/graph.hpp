@@ -30,10 +30,11 @@ public:
     /** Printer functions **/
     void print1();
     std::string print2();
-    
-    std::vector<std::string> BFS(std::string startPoint, std::string endPoint);
+
+    /** return the number of vertices in the graph */
     int number_vertices();
-    // void test();
+
+    std::vector<std::string> BFS(std::string startPoint, std::string endPoint);
     
     /** degree_centrality **/
     int num_OutgoingEdges(std::string vertex);
@@ -47,9 +48,12 @@ public:
 
 
     void shortest_paths_count(std::string source, std::unordered_map<std::string, int>& dist, std::unordered_map<std::string, int>& paths, std::unordered_map<std::string, std::vector<std::string>>& pre, std::stack<std::string>& s);
-    // void find_paths(std::string source);
     std::unordered_map<std::string, double> betweenness_centrality_opt();
 
+    /** this function is invalid right now, but maybe it will be used for test purpose
+    void find_paths(std::string source); 
+     */
+    
     /** partition **/
     void partition(unsigned int n);
 

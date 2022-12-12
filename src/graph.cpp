@@ -244,8 +244,13 @@ double Graph::betweenness_centrality(std::string point) {
     return count;
 }
 
-
+    /** counting the number of shortest paths with a designated source vertex to all the possible destinations
+     *  keep track of the predecessors of vertices
+     *  modifying other data for further calculation
+     */
 void Graph::shortest_paths_count(std::string source, std::unordered_map<std::string, int>& dist, std::unordered_map<std::string, int>& paths, std::unordered_map<std::string, std::vector<std::string>>& pre, std::stack<std::string>& s) {
+    // the distance from one vertex to itself will be 0
+    // the number of shortest paths from one vertex to itself is 1
     dist[source] = 0;
     paths[source] = 1;
     
@@ -255,7 +260,10 @@ void Graph::shortest_paths_count(std::string source, std::unordered_map<std::str
     while (!q.empty()) {
         std::string point = q.front();
         q.pop();
+
+        // push the vertex to stack in BFS order
         s.push(point);
+
         for (std::string adj : GetAdjacencyList(point)) {
             // if not visited
             if (dist[adj] < 0) {
@@ -263,7 +271,7 @@ void Graph::shortest_paths_count(std::string source, std::unordered_map<std::str
                 dist[adj] = dist[point] + 1;
             }
             
-            // if point is on the shortest path bewteen source and adj
+            // if point is a predecessor of the adj
             if (dist[adj] == dist[point] + 1) {
                 paths[adj] += paths[point];
                 pre[adj].push_back(point);
@@ -272,28 +280,28 @@ void Graph::shortest_paths_count(std::string source, std::unordered_map<std::str
     }
 }
 
-// void Graph::find_paths(std::string source) {
-//     std::unordered_map<std::string, int> dist;
-//     std::unordered_map<std::string, int> paths;
+/** the purpose of this function is to calculate the number of shortest paths with a fixed source vertex
+    leaving it for future test purpose
+    need to modify some variables before using it
+     
+void Graph::find_paths(std::string source) {
+    std::unordered_map<std::string, int> dist;
+    std::unordered_map<std::string, int> paths;
 
-//     for (std::string v : V) {
-//         dist[v] = INT_MAX;
-//         paths[v] = 0;
-//     }
+    for (std::string v : V) {
+        dist[v] = INT_MAX;
+        paths[v] = 0;
+    }
 
-//     shortest_paths_count(source, dist, paths);
+    shortest_paths_count(source, dist, paths);
         
-//     for (auto v : V) 
-//         std::cout << paths[v] << std::endl;
-// }
+    for (auto v : V) 
+        std::cout << paths[v] << std::endl;
+}
 
-// void Graph::test() {
-//     for (auto v : V) {
-//         if (matrix.find(v) != matrix.end())
-//             find_paths(v);
-//     }
-// }
+ */
 
+    /** the optimized version of calculating betweenness centrality **/
 std::unordered_map<std::string, double> Graph::betweenness_centrality_opt() {
 
     // initialize the betweenness-centrality coefficient
@@ -301,28 +309,25 @@ std::unordered_map<std::string, double> Graph::betweenness_centrality_opt() {
     for (std::string v : V)
         centrality_coe[v] = 0.0;
 
+    // traversing through all the source vertices
     for (std::string source : V) {
         std::stack<std::string> stack;
         std::unordered_map<std::string, std::vector<std::string>> pre;
         std::unordered_map<std::string, int> paths;
         std::unordered_map<std::string, int> dist;
         
+        // we use distance from source to one vertex to determine if we have visited the vertex
+        //    use paths to keep track of the number of shortest paths
         for (std::string v : V) {
             dist[v] = -1;
             paths[v] = 0;
         }
 
+        // updating all the data
         shortest_paths_count(source, dist, paths, pre, stack);
-        // std::cout << source << "  -----------------" << std::endl;
-        // for (std::pair<std::string, std::vector<std::string>> key_val : pre) {
-        //     std::cout << key_val.first << " ";
-        //     for (std::string s : key_val.second) {
-        //         std::cout << s << " ";
-        //     }
-        //     std::cout << std::endl;
-        // }
+       
+        // betweenness coefficent for a vertex with a fixed source
         std::unordered_map<std::string, double> coefficients;
-
         for (std::string v : V)
             coefficients[v] = 0.0;
 
@@ -330,16 +335,18 @@ std::unordered_map<std::string, double> Graph::betweenness_centrality_opt() {
             std::string point = stack.top();
             stack.pop();
             for (std::string w : pre[point]) {
+                // the formula for betweenness centrality based on pair-dependency
                 double co = (1 + coefficients[point]) * (static_cast<double>(paths[w])/paths[point]);
                 coefficients[w] += co;
-                // std::cout << "point:" << point << "   pre:" << w << "   co:" << co << std::endl;
             }
                 
-
+            // sum up the coefficents with fixed source
             if (point != source)
                 centrality_coe[point] += coefficients[point];
         }
     }
+
+    /** This part is for finding the vertex with the biggest bc
 
     std::string ret = *(V.begin());
 
@@ -347,12 +354,13 @@ std::unordered_map<std::string, double> Graph::betweenness_centrality_opt() {
         if (centrality_coe[v] > centrality_coe[ret])
             ret = v;
     }
-    // for (std::string v : V) {
-    //     std::cout << "vertex: " << v << "    bc: " << centrality_coe[v] << std::endl;
-    // }
     std::cout << centrality_coe[ret] << std::endl;
-    return centrality_coe;
+    std::cout << ret << std::endl;
+    }
 
+    */
+
+    return centrality_coe;
 }
 
 /** partition the current graph to a graph with n vertices **/
@@ -383,7 +391,7 @@ void Graph::partition(unsigned int n) {
         }
         Vi.insert(curr);
         std::vector<std::string> toInsert;
-        
+
         int i = 10;
         if (matrix[curr].size() > 10)
             i = std::max(matrix[curr].size() / 10, matrix[curr].size());
