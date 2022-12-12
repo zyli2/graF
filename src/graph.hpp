@@ -24,8 +24,8 @@ public:
     /** Getter functions **/
     std::unordered_set<std::string>& getV();
     std::vector<std::pair<std::string, std::string>>& getE();
-    std::unordered_map<std::string, std::vector<std::string>> getMatrix();
-    std::unordered_map<std::string, std::vector<std::string>> getRMatrix();
+    std::unordered_map<std::string, std::vector<std::string>> getTargets_map();
+    std::unordered_map<std::string, std::vector<std::string>> getR_Targets_map();
 
     /** Printer functions **/
     void print1();
@@ -59,8 +59,8 @@ public:
 
 private:
     std::vector<std::string>& GetAdjacencyList(const std::string& source);
-    std::unordered_map<std::string, std::vector<std::string>> matrix;
-    std::unordered_map<std::string, std::vector<std::string>> reverse_matrix;
+    std::unordered_map<std::string, std::vector<std::string>> targets_map;
+    std::unordered_map<std::string, std::vector<std::string>> reverse_targets_map;
     std::unordered_set<std::string> V;
     std::vector<std::pair<std::string, std::string>> E;
 };

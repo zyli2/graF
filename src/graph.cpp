@@ -3,7 +3,7 @@
 
 /** Constructor **/
 Graph::Graph(const std::string& file) {
-    matrix.clear();
+    targets_map.clear();
     std::ifstream data{file};
     std::string line;
     if (!data.good()) throw std::runtime_error("failed reading");
@@ -16,8 +16,8 @@ Graph::Graph(const std::string& file) {
         std::string target_subreddit = data.at(1);
 
         // store data into our Adjacency list(as well as the reversed one)
-        matrix[source_subreddit].push_back(target_subreddit);
-        reverse_matrix[target_subreddit].push_back(source_subreddit);
+        targets_map[source_subreddit].push_back(target_subreddit);
+        reverse_targets_map[target_subreddit].push_back(source_subreddit);
 
         // store all the vertices
         V.insert(source_subreddit);
@@ -31,34 +31,34 @@ Graph::Graph(const std::string& file) {
 /** The following functions are for the test purposes **/
 
     /** Getter functions **/
-std::unordered_map<std::string, std::vector<std::string>> Graph::getMatrix() {
-    return matrix;
+std::unordered_map<std::string, std::vector<std::string>> Graph::getTargets_map() {
+    return targets_map;
 }
-std::unordered_map<std::string, std::vector<std::string>> Graph::getRMatrix() {
-    return reverse_matrix;
+std::unordered_map<std::string, std::vector<std::string>> Graph::getR_Targets_map() {
+    return reverse_targets_map;
 }
 
     /** print all the sources and targets, along with all the edges **/
 void Graph::print1() {
 
     std::cout << "source:" << std::endl;
-    for (std::pair<std::string, std::vector<std::string>> key_val : matrix)    
+    for (std::pair<std::string, std::vector<std::string>> key_val : targets_map)    
         std::cout << key_val.first << std::endl;
     std::cout << "-----------------------" << std::endl;
 
     std::cout << "target:" << std::endl;
-    for (std::pair<std::string, std::vector<std::string>> key_val : reverse_matrix)    
+    for (std::pair<std::string, std::vector<std::string>> key_val : reverse_targets_map)    
         std::cout << key_val.first << std::endl;
     std::cout << "-----------------------" << std::endl;
 
-    for (std::pair<std::string, std::vector<std::string>> key_val : matrix) 
-        for (std::string key_val_target : matrix[key_val.first])
+    for (std::pair<std::string, std::vector<std::string>> key_val : targets_map) 
+        for (std::string key_val_target : targets_map[key_val.first])
             std::cout << key_val.first << "------->" << key_val_target << std::endl;
 }
 
     /** print random source elements **/
 std::string Graph::print2() {
-    return matrix.begin()->first;
+    return targets_map.begin()->first;
 }
 
     /** number of vertices **/
@@ -68,8 +68,8 @@ int Graph::number_vertices() {
 
 /** Get the adjacency list for one source vertex **/
 std::vector<std::string>& Graph::GetAdjacencyList(const std::string& source) { 
-    if (matrix.find(source) == matrix.end()) std::vector<std::string>();
-    return matrix[source];
+    if (targets_map.find(source) == targets_map.end()) std::vector<std::string>();
+    return targets_map[source];
 }
 
 
@@ -78,7 +78,7 @@ std::vector<std::string>& Graph::GetAdjacencyList(const std::string& source) {
  */
 std::vector<std::string> Graph::BFS(std::string startPoint, std::string endPoint) {
     // if startPoint is not a source vertex return an empty vector
-    if (matrix.find(startPoint) == matrix.end()) return std::vector<std::string>();
+    if (targets_map.find(startPoint) == targets_map.end()) return std::vector<std::string>();
 
     std::queue<std::string> q;
     q.push(startPoint); 
@@ -101,7 +101,7 @@ std::vector<std::string> Graph::BFS(std::string startPoint, std::string endPoint
 
         // if the point doesn't have any outgoing edges, 
         //    then we move on to the next element in the queue
-        if (matrix.find(point) == matrix.end()) continue;
+        if (targets_map.find(point) == targets_map.end()) continue;
 
         // traverse through all the vertices in the adjacency list
         for (std::string target : GetAdjacencyList(point)) {
@@ -128,13 +128,13 @@ std::vector<std::string> Graph::BFS(std::string startPoint, std::string endPoint
 /** Degree centrality algorithm **/
 
 int Graph::num_OutgoingEdges(std::string vertex) {
-    if (matrix.find(vertex) == matrix.end()) return 0;
+    if (targets_map.find(vertex) == targets_map.end()) return 0;
     return GetAdjacencyList(vertex).size();
 }
 
 int Graph::num_IncomingEdges(std::string vertex) {
-    if (reverse_matrix.find(vertex) == reverse_matrix.end()) return 0;
-    return reverse_matrix[vertex].size();
+    if (reverse_targets_map.find(vertex) == reverse_targets_map.end()) return 0;
+    return reverse_targets_map[vertex].size();
 }
 
 /** Function for degree_centrality 
@@ -143,7 +143,7 @@ int Graph::num_IncomingEdges(std::string vertex) {
 std::string Graph::degree_Centrality() {
     int ret_count = 0;
     std::string ret;
-    for (std::pair<std::string, std::vector<std::string>> key_val : matrix) {
+    for (std::pair<std::string, std::vector<std::string>> key_val : targets_map) {
         if (ret == key_val.first) continue;
         int temp_count = num_IncomingEdges(key_val.first) + num_OutgoingEdges(key_val.first);
         if (temp_count > ret_count) {
@@ -151,7 +151,7 @@ std::string Graph::degree_Centrality() {
             ret_count = temp_count;
         }   
     }
-    for (std::pair<std::string, std::vector<std::string>> key_val : reverse_matrix) {
+    for (std::pair<std::string, std::vector<std::string>> key_val : reverse_targets_map) {
         if (ret == key_val.first) continue;
         int temp_count = num_IncomingEdges(key_val.first) + num_OutgoingEdges(key_val.first);
         if (temp_count > ret_count) {
@@ -176,7 +176,7 @@ bool Graph::is_not_visited(std::string vertex, std::vector<std::string>& path) {
      *  return a vector that stores all the paths
      */
 std::vector<std::vector<std::string>> Graph::load_path(std::string startPoint, std::string endPoint) {
-    if (matrix.find(startPoint) == matrix.end() || reverse_matrix.find(endPoint) == reverse_matrix.end()) return std::vector<std::vector<std::string>>();
+    if (targets_map.find(startPoint) == targets_map.end() || reverse_targets_map.find(endPoint) == reverse_targets_map.end()) return std::vector<std::vector<std::string>>();
     
     std::vector<std::vector<std::string>> ret;
 
@@ -203,7 +203,7 @@ std::vector<std::vector<std::string>> Graph::load_path(std::string startPoint, s
 
         // if the vertex doesn't have any neighbors,
         //      then the path ends here
-        if (matrix.find(last_vertex) == matrix.end()) continue;
+        if (targets_map.find(last_vertex) == targets_map.end()) continue;
 
         // traverse through the neighbors of the last vertex
         for (std::string target : GetAdjacencyList(last_vertex)) {
@@ -223,7 +223,7 @@ double Graph::betweenness_centrality(std::string point) {
     double count = 0;
     // if the vertex doesn't have any neighbors,
     //      then its betweenness centrality will be 0
-    if (matrix.find(point) == matrix.end()) return count;
+    if (targets_map.find(point) == targets_map.end()) return count;
 
     // iterates all the possible pairs in the graph
     for (std::string s : V) {
@@ -365,7 +365,7 @@ std::unordered_map<std::string, double> Graph::betweenness_centrality_opt() {
 
 /** partition the current graph to a graph with n vertices **/
 void Graph::partition(unsigned int n) {
-    // the variable we want to set as our matrix after paritioning vertices in our big graph into a subgraph
+    // the variable we want to set as our targets_map after paritioning vertices in our big graph into a subgraph
     std::unordered_map<std::string, std::vector<std::string>> toAssign;
     std::unordered_set<std::string> Vi;
     std::vector<std::pair<std::string, std::string>> Ei;
@@ -374,18 +374,18 @@ void Graph::partition(unsigned int n) {
 
     // n in the amount of verticies we want to have after a parition
     while (Vi.size() < n) {
-        auto it = matrix.begin();
+        auto it = targets_map.begin();
         std::random_device dev;
         std::mt19937 rng(dev());
-        std::uniform_int_distribution<std::mt19937::result_type> dist(0,matrix.size()-1);
+        std::uniform_int_distribution<std::mt19937::result_type> dist(0,targets_map.size()-1);
         std::advance(it, dist(rng));
         curr = it->first;
 
         while (toAssign.find(curr) != toAssign.end()) {
-            auto it2 = matrix.begin();
+            auto it2 = targets_map.begin();
             std::random_device dev;
             std::mt19937 rng(dev());
-            std::uniform_int_distribution<std::mt19937::result_type> dist2(0,matrix.size()-1);
+            std::uniform_int_distribution<std::mt19937::result_type> dist2(0,targets_map.size()-1);
             std::advance(it2, dist2(rng));
             curr = it2->first;
         }
@@ -393,10 +393,10 @@ void Graph::partition(unsigned int n) {
         std::vector<std::string> toInsert;
 
         int i = 10;
-        if (matrix[curr].size() > 10)
-            i = std::max(matrix[curr].size() / 10, matrix[curr].size());
+        if (targets_map[curr].size() > 10)
+            i = std::max(targets_map[curr].size() / 10, targets_map[curr].size());
         int count = 0;
-        for (auto p : matrix[curr]) {
+        for (auto p : targets_map[curr]) {
             if (count == i) break;
             if (Vi.size() < n) {
                 toInsert.push_back(p);
@@ -408,7 +408,7 @@ void Graph::partition(unsigned int n) {
         toAssign.insert({curr, toInsert});
     }
 
-    matrix = toAssign;
+    targets_map = toAssign;
     V = Vi;
     E = Ei;
     std::unordered_map<std::string, std::vector<std::string>> reverse_toAssign;
@@ -422,7 +422,7 @@ void Graph::partition(unsigned int n) {
             }
         }
     }
-    reverse_matrix = reverse_toAssign;
+    reverse_targets_map = reverse_toAssign;
 }
 
 /** Getter functions for Edges and Vertices **/
