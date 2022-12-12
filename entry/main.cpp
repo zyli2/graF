@@ -8,9 +8,11 @@
 using namespace cs225;
 int main() {
   
-
-  Graph graph("../data_source_title_unrepeated.csv");
+  // Graph graph("../data_source_title_unrepeated.csv");
+  // Graph graph("../data/edges.csv");
   // Graph graph("../a.csv");
+  Graph graph("../data/attiro.csv");
+
 
   // std::vector<std::string> vect = graph.BFS("uiuc", "texas");
   // std::cout << graph.print1() << std::endl;
@@ -22,11 +24,10 @@ int main() {
   // std::cout << vect.size() << std::endl;
 
   // std::cout << "Size: " << graph.number_vertices() << std::endl;
-  graph.partition( 100 );
 
-  std::cout << "Size: " << graph.number_vertices() << std::endl;
   /*
   
+
   Image image = Image();
   image.readFromFile("white.png");
 
@@ -37,20 +38,17 @@ int main() {
   drawing.writeToFile("../tests/example.png");
   */ 
 
+  // graph.partition( 1000 );
+  // std::cout << "Size: " << graph.number_vertices() << std::endl;
   Image drawing = Image();
-
   drawing.readFromFile("../entry/Solid_white (1).png");
   drawing.scale(20);
-
-
-  Drawing object = Drawing(drawing, 100);
- 
-
+  Drawing object = Drawing(drawing, 20000);
   object.testDraw(graph);
-
-  std::cout << "Size: " << graph.number_vertices() << std::endl;
+  // std::cout << "Size: " << graph.number_vertices() << std::endl;
 
   // drawing.writeToFile("../tests/example.png");
+  // std::cout << "Size: " << graph.getE().size() << std::endl;
 
   return 0;
 }

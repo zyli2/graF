@@ -5,7 +5,8 @@
 #include <cmath>
 
 #include "drawing.hpp"
-
+bool compareCoeff(const Vertex& l, const Vertex& r);
+bool compareCoeff(const Vertex& l, const Vertex& r) { return l.bc_coeff < r.bc_coeff;}
 
 Drawing::Drawing(const Image& picture, unsigned max) {
     picture_ = Image(picture);
@@ -26,45 +27,16 @@ int Drawing::addSticker(Image& sticker, int x, int y) {
 
     stickers_.push_back(to_stick);
     coords_.push_back(std::make_pair(x,y));
-    // for (unsigned i = 0; i < stickers_.size(); i++) {
-    //     std::cout << stickers_[i]->width() << std::endl;
-    // }
-    // std::cout<< "\n" << std::endl;
+    
     return stickers_.size() - 1;
     
     
 }
 
-// void StickerSheet::changeMaxStickers(unsigned max) {
-//     if (max < max_ && stickers_.size() > max) {
-//         std::cout <<max << "  " <<  max_ << "  " << stickers_.size()<< std::endl;
-//         for (unsigned i = 0; i < max - stickers_.size() && stickers_.size() > 0; i++) {
-//             std::cout << stickers_.size() << std::endl;
-//             // delete stickers_[stickers_.size() - 1];
-//             stickers_[stickers_.size() - 1] = nullptr;
-//             stickers_.pop_back();
-//             max_--;
-//         }
-//         max_ = max;
-//     } else {
-//         max_ = max;
-//     }
-// }
 
-// Image* StickerSheet::getSticker(unsigned index) {
-//     if (stickers_.size() == 0) {
-//         return NULL;
-//     }
-//     if (index < 0 || index > stickers_.size() - 1 || stickers_[index] == nullptr) {
-//         return NULL;
-//     }
-//     return stickers_[index];
-// }	
 
 void Drawing::removeSticker(unsigned index) {
-    // if (stickers_.size() == 0 || index < 0 || index >= stickers_.size()) {
-    //     return;
-    // }
+
     if (index == 0 && stickers_.size() == 1) {
         stickers_.clear();
     }
@@ -75,10 +47,7 @@ void Drawing::removeSticker(unsigned index) {
         
         coords_.erase(coords_.begin() + index);
     }
-    // for (unsigned i = 0; i < stickers_.size(); i++) {
-    //     std::cout << stickers_[i] << std::endl;
-    // }
-    // std::cout<< "\n" << std::endl;
+    
 }
 
 
@@ -121,101 +90,8 @@ Image Drawing::render() const {
         }
     }
     return rendered;
-    
-    /* 
-    Image background = base;
-
-    // loop through the stickers vector
-    for (unsigned int i = 0; i < stickers_.size(); ++i) {
-
-    // checks that layer is not empty
-    if (stickers_[i] != NULL) {
-    // check if resizing is necessary
-    // how to check? check if the length and height at that specific point is enough for the sticker to be added so.
-    // available space = background.width/height - coordnate's index's width/height <= (*stickers[i]).width/height
-    // actual resizing = scale(background.widhth + availble space - stickers[i].width, background.height + availble space - stickers[i].height)
-    
-        int available_space_w = background.width() - coords_[i].first; // 900 - 800 = 100
-        int available_space_y = background.height() - coords_[i].second; // 600 - 200 = 400
-
-    // this means the pixels are at a coordinate outside of the base image
-
-        if ((available_space_w < 0) && (available_space_y < 0)) {
-            background.resize(background.width() + abs(available_space_w) + (*stickers_[i]).width(),
-                            background.height() + abs(available_space_y) + (*stickers_[i]).height());
-        } else if ((available_space_w < 0)) {
-            background.resize(background.width() + abs(available_space_w) + (*stickers_[i]).width(), background.height());
-        } else if ((available_space_y < 0)) {
-            background.resize(background.width(), background.height() + abs(available_space_y) + (*stickers_[i]).height());
-        } else if ((available_space_w < int((*stickers_[i]).width()) && available_space_y < int((*stickers_[i]).height()))) {
-            background.resize(background.width() + (*stickers_[i]).width() - available_space_w,
-                            background.height() + (*stickers_[i]).height() - available_space_y);
-        } else if (available_space_w < int((*stickers_[i]).width())) { // 100 < 226
-            background.resize(background.width() + (*stickers_[i]).width() - available_space_w, background.height());
-            // width scale: 900 + 226 - 100 = 1026
-            // height scale: 600;
-        } else if (available_space_y < int((*stickers_[i]).height())) {
-            background.resize(background.width(), background.height() + (*stickers_[i]).height() - available_space_y);
-        }
-
-            for (unsigned int y = 0; y < (*stickers_[i]).height(); ++y) {
-                for (unsigned int x = 0; x < (*stickers_[i]).width(); ++x) {
-                    if ((*stickers_[i]).getPixel(x, y).a == 0) {
-                        continue;
-                    } else {
-                        background.getPixel(x + coords_[i].first, y + coords_[i].second).h = (*stickers_[i]).getPixel(x, y).h;
-                        background.getPixel(x + coords_[i].first, y + coords_[i].second).l = (*stickers_[i]).getPixel(x, y).l;
-                        background.getPixel(x + coords_[i].first, y + coords_[i].second).s = (*stickers_[i]).getPixel(x, y).s;
-                    }
-                }
-            }
-            
-        }
-    }
-    return background;
-    */
 }
 
-
-// https://cs.brown.edu/people/rtamassi/gdhandbook/chapters/force-directed.pdf
-
-// void Drawing::forceDirected(Image canvas, Graph graph) {
-//     int area = canvas.width() * canvas.height();
-
-//     // randomize positions
-//     for(std::string each : graph.getV()) {
-//         int x = 30 + (rand() % canvas.width() - 30);
-//         int y = 30 + (rand() % canvas.height() - 30);
-//         vertices.push_back(Vertex(each, x, y));
-//     }
-//     for(std::pair<std::string, std::string> each : graph.getE()) {
-//         Vertex vert1 = Vertex(each.first, 0, 0);                //placeholders for comparison
-//         Vertex vert2 = Vertex(each.second, 0, 0);
-//         edges.push_back(std::make_pair(*std::find(vertices.begin(), vertices.end(), vert1), *std::find(vertices.begin(), vertices.end(), vert2)));
-//     }
-
-    
-    
-//     int k = sqrt(area / graph.getV().size());
-
-//     const int iters = 40;
-//     for (int i = 0; i < iters; i++) {
-//         for (Vertex v : vertices) {
-//             for (Vertex v2 : vertices) {
-//                 if (v.source != v2.source) {
-//                     int diff = v.pos - v2.pos;
-//                     // v.disp = v.disp + ()
-//                 }
-//             }
-//         }
-
-//         for (std::pair<Vertex, Vertex> e : edges) {
-//             int diff = e.first.pos - e.second.pos;
-//             // e.first.disp = e.first.disp - ((diff / ) * (std::pow(x, 2) / k));
-//             // e.second.disp = e.second.disp + ((diff / ) * (std::pow(k, 2) / x));
-//         }
-//     }
-// }
 
 void Drawing::testDraw(Graph graph) {
 
@@ -224,25 +100,71 @@ void Drawing::testDraw(Graph graph) {
 
     vert_png.scale(0.05);
 
-    // Drawing test(canvas, 50);
 
+    
+    std::unordered_map<std::string, double> map_coeffs = graph.betweenness_centrality_opt();        //receiving mapping of vertex name to its bc_coeff
+    std::map<std::string, Vertex> map;
+    
+
+
+    
     for(std::string each : graph.getV()) {
+
 
         std::random_device dev;
         std::mt19937 rng(dev());
         std::uniform_int_distribution<std::mt19937::result_type> dist1(0,INT_MAX);
-        int x = dist1(rng) % (picture_.height() - 100);
+        int x = 100 + dist1(rng) % (picture_.height() - 300);
 
         std::uniform_int_distribution<std::mt19937::result_type> dist2(0,INT_MAX);
-        int y = dist2(rng) % (picture_.width() - 100);
-        Vertex vert = Vertex(each, x, y);
-        vertices.insert(vert);
+        int y = 100 + dist2(rng) % (picture_.width() - 300);
 
+        
+        Vertex vert = Vertex(each, x, y);
+        
+        vert.bc_coeff = map_coeffs[vert.source];
+        // std::cout << vert.bc_coeff << std::endl;
+        
+
+        // if (vert.bc_coeff > 5) {                                        //
+        //     std::cout << "hi" << std::endl;
+        //     vert.x = 1000 + dist1(rng) % (3000 - 1000 + 1);  
+        //     vert.y = 1000 + dist2(rng) % (3000 - 1000 + 1); 
+        // }
+        vertices.insert(vert);              
+        map.insert({each, vert});                           //create mapping from source to Vertex object for ease of accessing
         addSticker(vert_png, vert.x, vert.y);
     }
 
-    // std::cout << "Size: " << graph.getV().size() << std::endl;
-    for(std::pair<std::string, std::string> each : graph.getE()) {
+    std::vector<Vertex> vec;
+    for (auto each: map) {
+        vec.push_back(each.second);
+    }
+    std::sort(vec.begin(), vec.end(), compareCoeff);          // sorting Vertex objects by bc_coeff
+    // std::reverse(vec1.begin(), vec1.end());                  // reverse function to change order of sort
+
+    std::cout << "Node with highest betweenness centrality coefficient is " + vec[vec.size() - 1].source + ", and its BC-Coefficient is: " << vec[vec.size() - 1].bc_coeff << '\n' <<std::endl;
+
+
+
+
+    std::cout << "Top ten percent nodes with highest betweenness centrality coefficients, and their values:" << '\n' <<std::endl;
+    for (size_t i = vec.size()* 0.90; i < vec.size(); i++) {                                   // top ten percent vertices with highest bc coeff
+        // Image vert1;
+        // vert1.readFromFile("../src/vert.png");
+        // vert1.scale(0.15);       
+        std::cout << "Source: " + vec[i].source + " | " << "BC-Coefficient: " << vec[i].bc_coeff << std::endl;
+    //     addSticker(vert1, map.at(vec[i].source).x, map.at(vec[i].source).y);
+
+    }
+    
+    Image vert2;                                                                        //only #1 highest betweenness centrality
+    vert2.readFromFile("../src/biggestcentrality.png");
+    vert2.scale(0.5);
+    addSticker(vert2, map.at(vec[vec.size() - 1].source).x -50, map.at(vec[vec.size() - 1].source).y -50);
+
+
+    for(std::pair<std::string, std::string> each : graph.getE()) {                  //this  creates the pairs of Vertex objects for the edges structures
 
       
         Vertex found1 = Vertex("Default", 0, 0); 
@@ -251,7 +173,6 @@ void Drawing::testDraw(Graph graph) {
         for ( Vertex vertex : vertices ) {
             if (vertex.source == each.first) {
                 found1 = vertex;
-                // std::cout << "X: " << found1.x << std::endl;
             }
             if (vertex.source == each.second) {
                 found2 = vertex;
@@ -264,6 +185,9 @@ void Drawing::testDraw(Graph graph) {
     }
 
     for(std::pair<Vertex, Vertex> each : edges) {
+        // if (each.first.bc_coeff < 2 || each.second.bc_coeff < 2) {
+        //     continue;
+        // }
         int dist = distance(each.first, each.second);
         double slope = double(each.second.x - each.first.x) / (each.second.y - each.first.y);
         // std::cout << "Slope: " << slope << std::endl;
@@ -324,3 +248,5 @@ int Drawing::distance(Vertex vert1, Vertex vert2) {
 double angle(double x_diff, double y_diff) {
     return atan( x_diff / y_diff );
 }
+
+
