@@ -1,5 +1,3 @@
-# graF
-
 # Github Organization
 
 # graF
@@ -19,7 +17,7 @@ Location of all of our written code
 Location of our written report, presentation powerpoint, presentation link
 
 # tests
-Location of our test cases and where we store the images produced by our test cases
+Stores our test cases, data test cases uses, and images produced using the test case data
 
 # Running Instructions
 
