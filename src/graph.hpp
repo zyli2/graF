@@ -32,7 +32,7 @@ public:
     std::string print2();
 
     /** return the number of vertices in the graph */
-    int number_vertices();
+    unsigned number_vertices();
 
     std::vector<std::string> BFS(std::string startPoint, std::string endPoint);
     

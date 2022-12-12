@@ -62,7 +62,7 @@ std::string Graph::print2() {
 }
 
     /** number of vertices **/
-int Graph::number_vertices() {
+unsigned Graph::number_vertices() {
     return V.size();
 }
 
@@ -365,6 +365,7 @@ std::unordered_map<std::string, double> Graph::betweenness_centrality_opt() {
 
 /** partition the current graph to a graph with n vertices **/
 void Graph::partition(unsigned int n) {
+    if (n > number_vertices()) throw std::invalid_argument("bigger than the number of vertices in the graph");
     // the variable we want to set as our targets_map after paritioning vertices in our big graph into a subgraph
     std::unordered_map<std::string, std::vector<std::string>> toAssign;
     std::unordered_set<std::string> Vi;
@@ -433,4 +434,3 @@ std::vector<std::pair<std::string, std::string>>& Graph::getE() {
 std::unordered_set<std::string>& Graph::getV() {
     return V;
 }
-
