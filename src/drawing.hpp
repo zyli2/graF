@@ -9,16 +9,14 @@
 #include <set>
 #include <cmath>
 
-class Drawing {
+class Drawing {                     // class based on the CS225 StickerSheet
     public:
         Drawing(const Image & picture, unsigned max);
-        void forceDirected(Image canvas, Graph graph);
         void removeSticker(unsigned index);
         int addSticker(Image& sticker, int x, int y);
         
         void testDraw(Graph graph);
         Image render() const;
-        bool translate(unsigned index, unsigned x, unsigned y);
         
     private:
 
@@ -30,8 +28,6 @@ class Drawing {
         std::vector<std::pair<int, int>> coords_;
 
         int distance(Vertex vert1, Vertex vert2);
-        double angle(double x_diff, double y_diff);
-        Image base;
         
 };
 

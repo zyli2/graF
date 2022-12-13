@@ -350,7 +350,7 @@ std::unordered_map<std::string, double> Graph::betweenness_centrality_opt() {
     // for (std::string v : V) {
     //     std::cout << "vertex: " << v << "    bc: " << centrality_coe[v] << std::endl;
     // }
-    std::cout << centrality_coe[ret] << std::endl;
+    // std::cout << centrality_coe[ret] << std::endl;
     return centrality_coe;
 
 }
