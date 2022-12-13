@@ -172,5 +172,5 @@ TEST_CASE("BFS-b-dataset", "[weight=1][part=1]") {
 // TEST_CASE("Betweenness-Centrality-Big", "[weight=1][part=1]") {
 //   Graph graph("../data/ttt.csv");
 
-//   REQUIRE( graph.betweenness_centrality("dogecoin") == graph.betweenness_centrality_opt()["dogecoin"] );
+//   REQUIRE( std::abs(graph.betweenness_centrality("dogecoin") - graph.betweenness_centrality_opt()["dogecoin"]) < 0.01 );
 // }
