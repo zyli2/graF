@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /**
  
  * Contains your declaration of the interface for the Image class.
@@ -27,4 +28,26 @@ class Image : public cs225::PNG {
 
 };
 
+=======
+#include "../cs225/PNG.h"
+
+class Image : public cs225::PNG { 
+    public:
+        /**
+        * Scale the image by the given factor.
+        *
+        * @param factor The scaling factor.
+        */
+        void scale(double factor);
+
+        /**
+        * Scale the image by the given width adnd height.
+        *
+        * @param w The new width of the image.
+        * @param h The new height of the image.
+        */
+        void scale(unsigned w, unsigned h);
+};
+
+>>>>>>> 1a00dfe22018f88c890b4f932c4f0f674671a586
 #pragma once
