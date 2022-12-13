@@ -9,7 +9,7 @@
 #include <set>
 #include <cmath>
 
-class Drawing {
+class Drawing {                     // class based on the CS225 StickerSheet
     public:
         /**
         * The main drawing function.
@@ -48,6 +48,7 @@ class Drawing {
         Image picture_ = Image();
         std::vector<Image*> stickers_;
         std::vector<std::pair<int, int>> coords_;
+
+        int distance(Vertex vert1, Vertex vert2);
+        
 };
-
-

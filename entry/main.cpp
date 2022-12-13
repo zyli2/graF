@@ -19,6 +19,8 @@ int main() {
 
     std::string data = "";
 
+    std::cout << "Make sure you provide the entire csv file's name including the filename extension .csv" << std::endl;
+
     std::cout << "Enter your dataset's name: ";
 
     std::cin.ignore();
@@ -32,33 +34,47 @@ int main() {
 
     char graf;
     std::cout << "Do you want to produce a graph, find the vertex with the highest betweenness centrality or find the shortest path between two vertices?" << std::endl;
+    std::cout << "Our graph prints the vertex with the highest betweenness centrality in the terminal as well as highlighting it in the output picture" << std::endl;
+    std::cout << "For betweennness centrality, make sure your dataset has less than 5k vertices or it will be super slow." << std::endl;
+    std::cout << "For graph drawing, make sure your dataset has vertices less than 500." << std::endl;
     std::cout << "Enter g for graph, b for betweenness centrality or p for shortest path: ";
     std::cin >> graf;
 
     if (graf == 'g') {
       std::cout << "Producing image..." << std::endl;
-      // enter the graph drawing code
+
+      Image drawing = Image();
+      drawing.readFromFile("../entry/Solid_white (1).png");
+      drawing.scale(20);
+      Drawing object = Drawing(drawing);
+      object.testDraw(graph);
 
       std::cout << "Image complete! it is in the graF directory and it's named output.png" << std::endl;
     } else if (graf == 'p') {
-      std::string vertex1;
-      std::string vertex2;
-
-      std::cout << "Enter vertex 1: ";
-
       std::cin.ignore();
-      std::getline(std::cin, vertex1);
+      std::vector<std::string> vert;
+      int i = 1;
 
-      std::cout << "Enter vertex 2: ";
+      while(i < 3) {
+            std::string vertex;
+            std::cout << "Enter Vertex " << i << ": ";
+            std::getline(std::cin, vertex);
+            vert.push_back(vertex);
+            ++i;
+      }
 
-      std::cin.ignore();
-      std::getline(std::cin, vertex2);
+      std::cout << "If the output is blank, that means one of the vertices does not exist in your dataset or there isn't a path" << std::endl;
 
-      std::cout << "if the output is blank, that means one of the vertices does not exist in your dataset" << std::endl;
+      std::vector<std::string> vect = graph.BFS(vert[0],  vert[1]);
+      for (std::string s : vect) {
+        std::cout << s << "=>";
+      }
+      std::cout << " Path Length: " <<  vect.size() << std::endl;
 
-      std::cout << "Shortest path is: " << std::endl;
     } else {
-      // enter betweenness centrality code
+      std::cout << "The vertex with the best betweenness centrality is..." << std::endl;
+
+      graph.betweenness_centrality_opt();
     }
 
     std::cout << "The program has finished running. To run the program again, enter ./main in the terminal" << std::endl;
@@ -70,33 +86,51 @@ int main() {
 
     char graf;
     std::cout << "Do you want to produce a graph, find the vertex with the highest betweenness centrality or find the shortest path between two vertices?" << std::endl;
+    std::cout << "Our graph prints the vertex with the highest betweenness centrality in the terminal as well as highlighting it in the output picture" << std::endl;
+    std::cout << "For betweennness centrality, make sure your dataset has less than 5k vertices or it will be super slow." << std::endl;
+    std::cout << "For graph drawing, make sure your dataset has vertices less than 500." << std::endl;
     std::cout << "Enter g for graph, b for betweenness centrality or p for shortest path: ";
     std::cin >> graf;
 
     if (graf == 'g') {
-      std::cout << "Producing image..." << std::endl;
-      // enter the graph drawing code
+      std::cout << "Producing image... (our original dataset is too big so here's a drawing of the partitioned original dataset)" << std::endl;
+
+      Graph graph2("../data/attiro.csv");
+
+      Image drawing = Image();
+      drawing.readFromFile("../entry/Solid_white (1).png");
+      drawing.scale(20);
+      Drawing object = Drawing(drawing);
+      object.testDraw(graph2);
 
       std::cout << "Image complete! it is in the graF directory and it's named output.png" << std::endl;
     } else if (graf == 'p'){
-      std::string vertex1;
-      std::string vertex2;
-
-      std::cout << "Enter vertex 1: ";
 
       std::cin.ignore();
-      std::getline(std::cin, vertex1);
+      std::vector<std::string> vert;
+      int i = 1;
 
-      std::cout << "Enter vertex 2: ";
+      while(i < 3) {
+            std::string vertex;
+            std::cout << "Enter Vertex " << i << ": ";
+            std::getline(std::cin, vertex);
+            vert.push_back(vertex);
+            ++i;
+      }
 
-      std::cin.ignore();
-      std::getline(std::cin, vertex2);
+      std::cout << "If the output is blank, that means one of the vertices does not exist in your dataset or there isn't a path" << std::endl;
 
-      std::cout << "if the output is blank, that means one of the vertices does not exist in your dataset" << std::endl;
-
-      std::cout << "Shortest path is: " << std::endl;
+      std::vector<std::string> vect = graph.BFS(vert[0],  vert[1]);
+      for (std::string s : vect) {
+        std::cout << s << "=>";
+      }
+      std::cout << " Path Length: " <<  vect.size() << std::endl;
     } else {
-      // enter betweenness centrality code
+      std::cout << "The vertex with the best betweenness centrality is..." << std::endl;
+
+      Graph graph3("../data/ttt.csv");
+
+      graph3.betweenness_centrality_opt();
     }
 
     std::cout << "The program has finished running. To run the program again, enter ./main in the terminal" << std::endl;
@@ -105,50 +139,6 @@ int main() {
   } else {
     std::cout << "Invalid input. Please run the program again by entering in the terminal ./main" << std::endl;
   }
-  
-
-  // Graph graph("../data_source_title_unrepeated.csv");
-  // // Graph graph("../a.csv");
-
-  // // std::vector<std::string> vect = graph.BFS("uiuc", "texas");
-  // // std::cout << graph.print1() << std::endl;
-  // // std::cout << graph.print2() << std::endl;
-  // // for (std::string s : vect) 
-  // //   std::cout << s << "=>";
-
-  
-  // // std::cout << vect.size() << std::endl;
-
-  // // std::cout << "Size: " << graph.number_vertices() << std::endl;
-  // graph.partition( 100 );
-
-  // std::cout << "Size: " << graph.number_vertices() << std::endl;
-  // /*
-  
-  // Image image = Image();
-  // image.readFromFile("white.png");
-
-  // Drawing drawing = Drawing(image, 50);
- 
-  // drawing.testDraw()
-  
-  // drawing.writeToFile("../tests/example.png");
-  // */ 
-
-  // Image drawing = Image();
-
-  // drawing.readFromFile("../entry/Solid_white (1).png");
-  // drawing.scale(20);
-
-
-  // Drawing object = Drawing(drawing, 50);
- 
-
-  // object.testDraw(graph);
-
-  // std::cout << "Size: " << graph.number_vertices() << std::endl;
-
-  // // drawing.writeToFile("../tests/example.png");
 
   return 0;
 }

@@ -3,6 +3,8 @@
 #include <iostream>
 #include <cmath>
 #include "drawing.hpp"
+bool compareCoeff(const Vertex& l, const Vertex& r);
+bool compareCoeff(const Vertex& l, const Vertex& r) { return l.bc_coeff < r.bc_coeff;}
 
 
 Drawing::Drawing(const Image& picture) {
@@ -41,40 +43,66 @@ Image Drawing::render() const {
         }
     }
     return rendered;
+    
+
 }
+
 
 void Drawing::testDraw(Graph graph) {
 
     // Load the image of the vertex
     Image vert_png;
-    vert_png.readFromFile("../src/node.png");
-    vert_png.scale(0.1);
+    vert_png.readFromFile("../src/vert_png.png");
+    vert_png.scale(0.07);
 
-    // Loop through all the vertices of the graph
-    for(std::string each : graph.getV()) {
-        
-        // Random number generator for the coordinates of the vertex
+
+    
+    std::unordered_map<std::string, double> map_coeffs = graph.betweenness_centrality_opt();        //receiving mapping of vertex name to its bc_coeff
+    
+    
+    for(std::string each : graph.getV()) {                                                  // draws each vertex
+
+
         std::random_device dev;
         std::mt19937 rng(dev());
         std::uniform_int_distribution<std::mt19937::result_type> dist1(0,INT_MAX);
+        int x = 100 + dist1(rng) % (picture_.height() - 300);
 
-        // Make sure the coordinates don't go out of bounds.
-        int x = dist1(rng) % (picture_.height() - 100);
         std::uniform_int_distribution<std::mt19937::result_type> dist2(0,INT_MAX);
-        int y = dist2(rng) % (picture_.width() - 100);
-        Vertex vert = Vertex(each, x, y);
+        int y = 100 + dist2(rng) % (picture_.width() - 300);
 
-        // Update the vertices list 
-        vertices.insert(vert);
+        Vertex vert = Vertex(each, x, y);
+        
+        vert.bc_coeff = map_coeffs[vert.source];
+        
+        vertices.insert(vert);              
 
         // Draw the vertices 
         addVertex(vert_png, vert.x, vert.y);
     }
 
-    // Loop through all the edges of the graph
-    for(std::pair<std::string, std::string> each : graph.getE()) {
+    std::vector<Vertex> vec;
+    for (auto each: vertices) {
+        vec.push_back(each);
+    }
+    std::sort(vec.begin(), vec.end(), compareCoeff);          // sorting Vertex objects by bc_coeff
+    // std::reverse(vec1.begin(), vec1.end());                  // reverse function to change order of sort
 
-        // Default vertices of the edge
+
+    // std::cout << "Node with highest betweenness centrality coefficient is " + vec[vec.size() - 1].source + ", and its BC-Coefficient is: " << vec[vec.size() - 1].bc_coeff << '\n' <<std::endl;
+
+    // std::cout << "Top ten percent nodes with highest betweenness centrality coefficients, and their values:" << '\n' <<std::endl;
+    // for (size_t i = vec.size()* 0.90; i < vec.size(); i++) {                                            
+    //     std::cout << "Source: " + vec[i].source + " | " << "BC-Coefficient: " << vec[i].bc_coeff << std::endl;
+    // }
+    
+    Image vert2;                                                                        //only #1 highest betweenness centrality gets highlighted with different image
+    vert2.readFromFile("../src/biggestcentrality.png");
+    vert2.scale(0.5);
+    addVertex(vert2, vec[vec.size() - 1].x -50, vec[vec.size() - 1].y -50);
+
+
+    for(std::pair<std::string, std::string> each : graph.getE()) {                  //this creates the pairs of Vertex objects for the edges structures      
         Vertex found1 = Vertex("Default", 0, 0); 
         Vertex found2 = Vertex("Default2", 0, 0);
 
@@ -94,41 +122,54 @@ void Drawing::testDraw(Graph graph) {
         int start_y = found2.y;
     }
 
-    // Drawing the edges 
-    for(std::pair<Vertex, Vertex> each : edges) {
-        double slope = double(each.second.x - each.first.x) / (each.second.y - each.first.y);
-
-        // Take the node's height and width into account
+    for(std::pair<Vertex, Vertex> each : edges) {                                               //drawing each edge
+        int dist = distance(each.first, each.second);
+        double slope = double(each.second.x - each.first.x) / (each.second.y - each.first.y);           //using slope for line drawing
         int start_x = each.first.x + (vert_png.height() / 2);
-        int start_y = each.first.y + (vert_png.width()/ 2);
+        int start_y = each.first.y + (vert_png.width()/ 2);                     //adjust so that edge begins in center of vertex
 
 
         // The starting point will be marked red and the destination will be marked black.
         cs225::HSLAPixel black = cs225::HSLAPixel(0, 1, 0);
         cs225::HSLAPixel red = cs225::HSLAPixel(0, 1, 0.5);
 
-        // Calculate the length of the edge (on the canvas)
-        int bound = abs( each.second.y + int(vert_png.width()/ 2) - start_y );
-
-        // Determine the direction of the edge based on calculated slope
-        if (each.second.y > each.first.y) {
+        int bound = abs( each.second.y + int(vert_png.width()/ 2) - start_y );                      
+        if (each.second.y > each.first.y) {                                                     
             for (int i = 0; i < bound; i++) {
-                for (int j = -1; j < 2; ++j) {
-                    cs225::HSLAPixel & new_pixel = picture_.getPixel(start_x + j + int(i*slope), start_y + i);
-                    if (i < bound / 2) new_pixel = red;
-                    else new_pixel = black;
+                for (int k = -1; k < 2; k++) {
+                    cs225::HSLAPixel & new_pixel = picture_.getPixel(start_x + k + int(i*slope), start_y + i + k);
+            
+                    if (i < bound / 2) {
+                        new_pixel = red;
+                    
+                    } else {
+                        new_pixel = black;
+                    
+                    }
                 }
             }
         } else {
-            for (int i = 0; i < bound; i++) {
-                for (int j = -1; j < 2; ++j) {
-                    cs225::HSLAPixel & new_pixel = picture_.getPixel(start_x + j - int(i*slope), start_y - i);
-                    if (i < bound / 2) new_pixel = red;
-                    else new_pixel = black;
+            for (int i = 0; i < abs( (each.second.y + int(vert_png.width()/ 2) - start_y )); i++) {
+                for (int k = -1; k < 2; k++) {
+                    cs225::HSLAPixel & new_pixel = picture_.getPixel(start_x + k - int(i*slope), start_y - i + k);
+                    if (i < bound / 2) {
+                        new_pixel = red;
+                    
+                    } else {
+                        new_pixel = black;
+                    
+                    }
                 }
             }
         }   
     }
-    render().writeToFile("../tests/example.png");
+    render().writeToFile("../output.png");
 }
 
+
+int Drawing::distance(Vertex vert1, Vertex vert2) {                 
+    int x_diff = vert1.x - vert2.x;
+    int y_diff = vert1.y - vert2.y;
+
+    return int(sqrt( std::pow(x_diff, 2) + std::pow(y_diff, 2)));
+}

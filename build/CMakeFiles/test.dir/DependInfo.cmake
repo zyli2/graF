@@ -8,8 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/workspaces/cs225/graF/tests/tests-bfs.cpp" "CMakeFiles/test.dir/tests/tests-bfs.cpp.o" "gcc" "CMakeFiles/test.dir/tests/tests-bfs.cpp.o.d"
-  "/workspaces/cs225/graF/tests/tests-dataparsing.cpp" "CMakeFiles/test.dir/tests/tests-dataparsing.cpp.o" "gcc" "CMakeFiles/test.dir/tests/tests-dataparsing.cpp.o.d"
+  "/workspaces/cs225/graF/tests/tests.cpp" "CMakeFiles/test.dir/tests/tests.cpp.o" "gcc" "CMakeFiles/test.dir/tests/tests.cpp.o.d"
   )
 
 # Targets to which this target links.

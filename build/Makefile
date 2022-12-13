@@ -206,53 +206,29 @@ entry/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/entry/main.cpp.s
 .PHONY : entry/main.cpp.s
 
-tests/tests-bfs.o: tests/tests-bfs.cpp.o
-.PHONY : tests/tests-bfs.o
+tests/tests.o: tests/tests.cpp.o
+.PHONY : tests/tests.o
 
 # target to build an object file
-tests/tests-bfs.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/tests/tests-bfs.cpp.o
-.PHONY : tests/tests-bfs.cpp.o
+tests/tests.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/tests/tests.cpp.o
+.PHONY : tests/tests.cpp.o
 
-tests/tests-bfs.i: tests/tests-bfs.cpp.i
-.PHONY : tests/tests-bfs.i
-
-# target to preprocess a source file
-tests/tests-bfs.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/tests/tests-bfs.cpp.i
-.PHONY : tests/tests-bfs.cpp.i
-
-tests/tests-bfs.s: tests/tests-bfs.cpp.s
-.PHONY : tests/tests-bfs.s
-
-# target to generate assembly for a file
-tests/tests-bfs.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/tests/tests-bfs.cpp.s
-.PHONY : tests/tests-bfs.cpp.s
-
-tests/tests-dataparsing.o: tests/tests-dataparsing.cpp.o
-.PHONY : tests/tests-dataparsing.o
-
-# target to build an object file
-tests/tests-dataparsing.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/tests/tests-dataparsing.cpp.o
-.PHONY : tests/tests-dataparsing.cpp.o
-
-tests/tests-dataparsing.i: tests/tests-dataparsing.cpp.i
-.PHONY : tests/tests-dataparsing.i
+tests/tests.i: tests/tests.cpp.i
+.PHONY : tests/tests.i
 
 # target to preprocess a source file
-tests/tests-dataparsing.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/tests/tests-dataparsing.cpp.i
-.PHONY : tests/tests-dataparsing.cpp.i
+tests/tests.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/tests/tests.cpp.i
+.PHONY : tests/tests.cpp.i
 
-tests/tests-dataparsing.s: tests/tests-dataparsing.cpp.s
-.PHONY : tests/tests-dataparsing.s
+tests/tests.s: tests/tests.cpp.s
+.PHONY : tests/tests.s
 
 # target to generate assembly for a file
-tests/tests-dataparsing.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/tests/tests-dataparsing.cpp.s
-.PHONY : tests/tests-dataparsing.cpp.s
+tests/tests.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/tests/tests.cpp.s
+.PHONY : tests/tests.cpp.s
 
 # Help Target
 help:
@@ -270,12 +246,9 @@ help:
 	@echo "... entry/main.o"
 	@echo "... entry/main.i"
 	@echo "... entry/main.s"
-	@echo "... tests/tests-bfs.o"
-	@echo "... tests/tests-bfs.i"
-	@echo "... tests/tests-bfs.s"
-	@echo "... tests/tests-dataparsing.o"
-	@echo "... tests/tests-dataparsing.i"
-	@echo "... tests/tests-dataparsing.s"
+	@echo "... tests/tests.o"
+	@echo "... tests/tests.i"
+	@echo "... tests/tests.s"
 .PHONY : help
 
 

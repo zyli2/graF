@@ -49,8 +49,7 @@ endif()
 # tests_src at CMakeLists.txt:131 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/workspaces/cs225/graF/tests/*.cpp")
 set(OLD_GLOB
-  "/workspaces/cs225/graF/tests/tests-bfs.cpp"
-  "/workspaces/cs225/graF/tests/tests-dataparsing.cpp"
+  "/workspaces/cs225/graF/tests/tests.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")

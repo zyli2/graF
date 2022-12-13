@@ -69,44 +69,28 @@ include CMakeFiles/test.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/test.dir/flags.make
 
-CMakeFiles/test.dir/tests/tests-bfs.cpp.o: CMakeFiles/test.dir/flags.make
-CMakeFiles/test.dir/tests/tests-bfs.cpp.o: ../tests/tests-bfs.cpp
-CMakeFiles/test.dir/tests/tests-bfs.cpp.o: CMakeFiles/test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspaces/cs225/graF/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test.dir/tests/tests-bfs.cpp.o"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test.dir/tests/tests-bfs.cpp.o -MF CMakeFiles/test.dir/tests/tests-bfs.cpp.o.d -o CMakeFiles/test.dir/tests/tests-bfs.cpp.o -c /workspaces/cs225/graF/tests/tests-bfs.cpp
+CMakeFiles/test.dir/tests/tests.cpp.o: CMakeFiles/test.dir/flags.make
+CMakeFiles/test.dir/tests/tests.cpp.o: ../tests/tests.cpp
+CMakeFiles/test.dir/tests/tests.cpp.o: CMakeFiles/test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspaces/cs225/graF/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test.dir/tests/tests.cpp.o"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test.dir/tests/tests.cpp.o -MF CMakeFiles/test.dir/tests/tests.cpp.o.d -o CMakeFiles/test.dir/tests/tests.cpp.o -c /workspaces/cs225/graF/tests/tests.cpp
 
-CMakeFiles/test.dir/tests/tests-bfs.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/tests/tests-bfs.cpp.i"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspaces/cs225/graF/tests/tests-bfs.cpp > CMakeFiles/test.dir/tests/tests-bfs.cpp.i
+CMakeFiles/test.dir/tests/tests.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/tests/tests.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspaces/cs225/graF/tests/tests.cpp > CMakeFiles/test.dir/tests/tests.cpp.i
 
-CMakeFiles/test.dir/tests/tests-bfs.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/tests/tests-bfs.cpp.s"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspaces/cs225/graF/tests/tests-bfs.cpp -o CMakeFiles/test.dir/tests/tests-bfs.cpp.s
-
-CMakeFiles/test.dir/tests/tests-dataparsing.cpp.o: CMakeFiles/test.dir/flags.make
-CMakeFiles/test.dir/tests/tests-dataparsing.cpp.o: ../tests/tests-dataparsing.cpp
-CMakeFiles/test.dir/tests/tests-dataparsing.cpp.o: CMakeFiles/test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspaces/cs225/graF/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/test.dir/tests/tests-dataparsing.cpp.o"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test.dir/tests/tests-dataparsing.cpp.o -MF CMakeFiles/test.dir/tests/tests-dataparsing.cpp.o.d -o CMakeFiles/test.dir/tests/tests-dataparsing.cpp.o -c /workspaces/cs225/graF/tests/tests-dataparsing.cpp
-
-CMakeFiles/test.dir/tests/tests-dataparsing.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/tests/tests-dataparsing.cpp.i"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspaces/cs225/graF/tests/tests-dataparsing.cpp > CMakeFiles/test.dir/tests/tests-dataparsing.cpp.i
-
-CMakeFiles/test.dir/tests/tests-dataparsing.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/tests/tests-dataparsing.cpp.s"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspaces/cs225/graF/tests/tests-dataparsing.cpp -o CMakeFiles/test.dir/tests/tests-dataparsing.cpp.s
+CMakeFiles/test.dir/tests/tests.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/tests/tests.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspaces/cs225/graF/tests/tests.cpp -o CMakeFiles/test.dir/tests/tests.cpp.s
 
 # Object files for target test
 test_OBJECTS = \
-"CMakeFiles/test.dir/tests/tests-bfs.cpp.o" \
-"CMakeFiles/test.dir/tests/tests-dataparsing.cpp.o"
+"CMakeFiles/test.dir/tests/tests.cpp.o"
 
 # External object files for target test
 test_EXTERNAL_OBJECTS =
 
-test: CMakeFiles/test.dir/tests/tests-bfs.cpp.o
-test: CMakeFiles/test.dir/tests/tests-dataparsing.cpp.o
+test: CMakeFiles/test.dir/tests/tests.cpp.o
 test: CMakeFiles/test.dir/build.make
 test: /usr/lib/libCatch2Main.a
 test: src/libsrc.a
@@ -114,7 +98,7 @@ test: /usr/lib/libCatch2.a
 test: lib/libcs225.a
 test: lib/liblodepng.a
 test: CMakeFiles/test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/workspaces/cs225/graF/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/workspaces/cs225/graF/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable test"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/test.dir/link.txt --verbose=$(VERBOSE)
 	/usr/bin/cmake -D TEST_TARGET=test -D TEST_EXECUTABLE=/workspaces/cs225/graF/build/test -D TEST_EXECUTOR= -D TEST_WORKING_DIR=/workspaces/cs225/graF/build -D TEST_SPEC= -D TEST_EXTRA_ARGS= -D TEST_PROPERTIES= -D TEST_PREFIX= -D TEST_SUFFIX= -D TEST_LIST=test_TESTS -D TEST_REPORTER= -D TEST_OUTPUT_DIR= -D TEST_OUTPUT_PREFIX= -D TEST_OUTPUT_SUFFIX= -D TEST_DL_PATHS= -D CTEST_FILE=/workspaces/cs225/graF/build/test_tests-b12d07c.cmake -P /usr/lib/cmake/Catch2/CatchAddTests.cmake
 
