@@ -52,7 +52,7 @@ Make sure you're in the build directory and follow the steps below
 
 2) ```./test```
 
-TEST CASE DESCRIPTIONS
+TEST CASE DESCRIPTIONS:
 
 BFS Test - looks at the accuracy for producing the shortest path for two vertices by evaluating the actual path and path length.
 
